@@ -5,3 +5,5 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
  res.render('users', { title: req.user.username });
 });
+
+module.exports = router;
