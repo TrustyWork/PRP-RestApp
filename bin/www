@@ -5,24 +5,16 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('resto-vovk:server');
+var debug = require('debug')();
 var http = require('http');
-var nconf = require('nconf');
 var io = require('socket.io');
 var socket = require('websocket');
-
-/**
- * nconf setup
- */
-nconf.argv()
-   .env()
-   .file({ file: 'appconfig.json' });
-
+var config = require('config');
 
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(nconf.get('APP_PORT') || '3000');
+var port = normalizePort(config.get('port') || '3000');
 app.set('port', port);
 
 /**
