@@ -1,6 +1,0 @@
-{
-
-"APP_PORT" : 4000,
-"DB_URI": "mongodb://localhost/restapp",
-"SECRET": "RestoSecret"
-}
