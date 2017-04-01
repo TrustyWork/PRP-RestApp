@@ -1,13 +1,15 @@
 var websocketServer = require('./index');
 
-websocketServer.on('connection', function (socket) {
-
+websocketServer.on('connection', function (client) {
+    console.log('connected!'); 
     //hertbeat
-    setInterval(() => { socket.emit('tic-tac', 'I\'m alive') }, 10000)
+    setInterval(() => { client.emit('tic-tac', 'I\'m alive') }, 10000)
 
     //ping responder
-    socket.on('ping', (msg) => {
-        socket.emit('pong', msg.split('').reverse.join(''))  // :-)
+
+    client.on('p-i-n-g', (msg) => {
+        console.log('p-i-n-g');
+        client.emit('p-o-n-g',{})  // :-)
 
     });
 
