@@ -1,1 +1,1 @@
-hfkgwh
+const nconf = require('nconf');
