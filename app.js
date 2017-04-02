@@ -20,7 +20,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 mongoose.connect(config.get('db:uri'));
-console.log( config.get('db:uri'));
 const db = mongoose.connection;
 
 db.on('error', function (err) {
