@@ -1,7 +1,7 @@
 module.exports = function (websocketServer) {
 
 
-module.exports=websocketServer   
+	module.exports = websocketServer;
 
-require('./heartbeat');
+	require('./heartbeat');
 }

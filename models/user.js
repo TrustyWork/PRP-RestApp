@@ -1,49 +1,49 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
 
-var UserSchema = {
+const UserSchema = {
 
-    // _id will be created by Mongo
+	// _id will be created by Mongo
 
-    role: {
-        stuff: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Rest'
-        }],
-        restorator: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Rest'
-        }]
-    },
+	role: {
+		stuff: [{
+			type: Schema.Types.ObjectId,
+			ref: 'Rest'
+		}],
+		restorator: [{
+			type: Schema.Types.ObjectId,
+			ref: 'Rest'
+		}]
+	},
 
-    auth: {     
+	auth: {
 
-        // fb: Schema.Types.Mixed,
-        // gl: Schema.Types.Mixed
-    },
+		// fb: Schema.Types.Mixed,
+		// gl: Schema.Types.Mixed
+	},
 
-    birthday: {
-        type: Date
-    },
+	birthday: {
+		type: Date
+	},
 
-    gender: {
-        type: String
-    },
+	gender: {
+		type: String
+	},
 
-    createTime : {
-        type: Date, default: Date.now
-    },
-    modifyTime : {
-        type: Date, default: Date.now
-    },
+	createTime: {
+		type: Date, default: Date.now
+	},
+	modifyTime: {
+		type: Date, default: Date.now
+	},
 
 }
 
-var User = new Schema(UserSchema);
+const User = new Schema(UserSchema);
 
 User.plugin(passportLocalMongoose, {
-limitAttempts: false,
-     });
+	limitAttempts: false,
+});
 
 module.exports = mongoose.model('User', User);
