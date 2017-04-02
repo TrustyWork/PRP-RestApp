@@ -36,8 +36,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Directory with Atom IDE configuration
-.vscodeA
+# Directory with VS.Code configuration
+.vscode
 
 # Directory with JetBrain products configuration
 .idea
