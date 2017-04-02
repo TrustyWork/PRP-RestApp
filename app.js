@@ -12,17 +12,14 @@ var Mongostore = require('connect-mongo')(session);
 //models import
 var userModel =  require('models/user');
 
-//nconf
-var nconf = require('nconf');
-nconf.argv()
-    .env()
-    .file({ file: 'appconfig.json' });
+var config = require('config');
+
 
 //Mongoose
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-mongoose.connect(nconf.get('DB_URI'));
+mongoose.connect(config.get('db:uri'));
 var db = mongoose.connection;
 
 db.on('error', function (err) {
@@ -64,13 +61,13 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser(nconf.get('SECRET')));
+app.use(cookieParser(config.get('SECRET')));
 app.use(session({
-  secret: nconf.get('SECRET'),
+  secret: config.get('session:secret'),
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false, httpOnly: true },
-  store: new Mongostore({ url: nconf.get('DB_URI')})
+  store: new Mongostore({ url: config.get('db:uri')})
 }))
 
 // Passport init
