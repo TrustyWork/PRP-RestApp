@@ -9,9 +9,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const Mongostore = require('connect-mongo')(session);
 
-//models import
-const userModel = require('models/user');
-
 const config = require('config');
 
 
@@ -30,24 +27,14 @@ db.once('open', function () {
 	console.info('Connected to DB!');
 });
 
-//passportjs
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
-passport.use(new LocalStrategy(
-	{
-		usernameField: 'username',
-		passwordField: 'password'
-	}, userModel.authenticate()
-));
 
 
 //Routes
 var index = require('routes/index');
 var users = require('routes/users');
 var api = require('routes/api');
-//var auth = require('routes/auth');
+var auth = require('routes/auth');
 
 
 const app = express();
@@ -67,7 +54,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true,
 	cookie: {secure: false, httpOnly: true},
-	//store: new Mongostore({url: config.get('db:uri')})
+	store: new Mongostore({url: config.get('db:uri')})
 }));
 
 // Passport init
@@ -86,14 +73,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //open routes
 app.use('/', index);
 app.use('/api', api);
-
-//auth
-app.use('/auth',
-	passport.authenticate('local', {
-		successRedirect: '/users',
-		failureRedirect: '/',
-		failureFlash: false
-	}));
+app.use('/auth', auth);
 
 
 // check auth middleware
