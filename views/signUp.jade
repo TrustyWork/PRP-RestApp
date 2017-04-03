@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+    form(action='/rest_users/signup' method='POST')
+        input.username(type='text' name='username' placeholder='Name and surname')
+        input.password(type='password' name='password' placeholder='Password')
+        button.send(type='submit') SignUp
+        if signUpWarn.length > 0
+            div.warn= signUpWarn
