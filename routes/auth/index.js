@@ -3,7 +3,13 @@ const router = express.Router();
 
 //auth handlers for various strategies
 const insta = require('./insta');
-const local = require('./local')
+const local = require('./local');
+const passport = require('passport');
+const userModel = require('models/user')
+
+
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
 
 //auth routes
 router.use('/insta', insta);

@@ -18,7 +18,7 @@ const UserSchema = {
 	},
 
 	auth: {
-
+		instagram: Schema.Types.Mixed
 		// fb: Schema.Types.Mixed,
 		// gl: Schema.Types.Mixed
 	},
@@ -41,6 +41,30 @@ const UserSchema = {
 }
 
 const User = new Schema(UserSchema);
+
+User.statics.findOrCreate = function (profile, cb) {
+
+	let self = this;
+
+	let prop = `auth.${profile.provider}.id`
+	let query = { [prop]  : `"${profile.id}"` }; // it not working W/O `"..."`
+
+	this.findOne(query, (err, user) => {
+		if (err) { return cb(err) }
+
+		if (!user) {
+			user = new self({ username: profile.username });
+			user.auth[profile.provider] = profile;
+			user.save(function (err) {
+				if (err) {
+					return cb(err);
+				}
+				return cb(null, user);
+			})
+		}
+	})
+
+}
 
 User.plugin(passportLocalMongoose, {
 	limitAttempts: false,

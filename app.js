@@ -43,7 +43,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
+// uncomment after placing your favicon in /puuserModel.register(new userModel({username: profile.username})}blic
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -60,7 +60,6 @@ app.use(session({
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use(require('node-sass-middleware')({
 	src: path.join(__dirname, 'public'),
