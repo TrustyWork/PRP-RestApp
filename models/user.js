@@ -47,8 +47,8 @@ User.statics.findOrCreate = function (profile, cb) {
 	let self = this;
 
 	let prop = `auth.${profile.provider}.id`
-	let query = { [prop]  : `"${profile.id}"` }; // it not working W/O `"..."`
-
+	let query = { [prop]: profile.id };
+	console.log(query);
 	this.findOne(query, (err, user) => {
 		if (err) { return cb(err) }
 
@@ -62,6 +62,7 @@ User.statics.findOrCreate = function (profile, cb) {
 				return cb(null, user);
 			})
 		}
+		return cb(null, user);
 	})
 
 }
