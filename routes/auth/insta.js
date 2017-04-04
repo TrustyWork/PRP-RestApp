@@ -11,7 +11,7 @@ passport.use(new InstagramStrategy(
 	{
 		clientID: config.get('auth:insta:clientID'),
 		clientSecret: config.get('auth:insta:clientSecret'),
-		callbackURL: 'http://127.0.0.1:4000/auth/insta/callback'
+		callbackURL: config.get('rootURL') + ':' + config.get('port') + config.get('auth:insta:callbackPath')
 	},
 
 	function (accessToken, refreshToken, profile, done) {

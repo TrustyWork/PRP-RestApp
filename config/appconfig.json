@@ -1,4 +1,5 @@
 {
+	"rootURL": "http://localhost",
 	"port": 4000,
 	"db": {
 		"uri": "mongodb://localhost/restapp"
@@ -11,7 +12,7 @@
 		"insta": {
 			"clientID": "4d2e2066f3c7416c884c408b5d429365",
 			"clientSecret": "b030fb82b9144ba581584f15d5179bce",
-			"callbackPath": "auth/insta/callback"
+			"callbackPath": "/auth/insta/callback"
 		}
 	}
 }
