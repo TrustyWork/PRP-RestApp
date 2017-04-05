@@ -1,9 +1,18 @@
 {
 	"port": 4000,
+	"app": {
+		"url": "http://localhost:"
+	},
 	"db": {
 		"uri": "mongodb://localhost/restapp"
 	},
 	"session": {
 		"secret": "RestoSecret"
+	},
+	"auth": {
+		"vk": {
+			"APP_ID": "5968149",
+			"clientSecret": "Secret"
+		}
 	}
 }

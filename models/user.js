@@ -18,7 +18,7 @@ const UserSchema = {
 	},
 
 	auth: {
-
+		vk: Schema.Types.Mixed
 		// fb: Schema.Types.Mixed,
 		// gl: Schema.Types.Mixed
 	},
@@ -36,8 +36,7 @@ const UserSchema = {
 	},
 	modifyTime: {
 		type: Date, default: Date.now
-	},
-
+	}
 }
 
 const User = new Schema(UserSchema);

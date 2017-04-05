@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+
 //Sessions support
 const session = require('express-session');
 const Mongostore = require('connect-mongo')(session);
@@ -32,6 +33,7 @@ db.once('open', function () {
 
 //passportjs
 const passport = require('passport');
+const passportVkStrategy = require('passport-vkontakte').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());
@@ -42,6 +44,29 @@ passport.use(new LocalStrategy(
 	}, userModel.authenticate()
 ));
 
+passport.use('vkontakte', new passportVkStrategy({
+		clientID: config.get("auth:vk:APP_ID"),   // google @how to get vkontakte app id@
+		clientSecret: config.get("auth:vk:clientSecret"),  // add secret in appconfig file
+		callbackURL: config.get("app:url") + "auth/vk/callback"
+	}, function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
+		console.log("Vkontaket Auth", profile)
+		process.nextTick(function () {							// see google passport social auth example 1st link (code.tutsplus.com)
+			userModel.findOne({vkontakteId: profile.id}, function (err, user) {
+				if (err)
+					return done(err)
+				if (user) {
+					return done(null, user)
+				} else
+					var newUser = new userModel()
+				newUser.auth.vk.id = profile.id
+			})  												// google mongoose findOrCreate 2nd link (stackOverflow)
+				.then(function (user) {
+					done(null, user)
+				})
+				.catch(done);
+		})
+	}
+));
 
 //Routes
 var index = require('routes/index');
@@ -93,7 +118,20 @@ app.use('/auth',
 		successRedirect: '/users',
 		failureRedirect: '/',
 		failureFlash: false
-	}));
+	})
+);
+
+app.get('/auth/vk',
+	passport.authenticate('vkontakte')
+);
+
+app.get('/auth/vk/callback',
+	passport.authenticate('vkontakte', {
+		successRedirect: '/users',
+		failureRedirect: '/',
+		failureFlash: false
+	})
+);
 
 
 // check auth middleware
@@ -104,7 +142,7 @@ const checkAuth = function (req, res, next) {
 	else {
 		res.redirect('/')
 	}
-}
+};
 
 // restricted access
 app.use('/users', checkAuth, users);
