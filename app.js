@@ -4,10 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
-//Sessions support
-const session = require('express-session');
-const Mongostore = require('connect-mongo')(session);
+const session = require('session');
 
 const config = require('config');
 
@@ -49,13 +46,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser(config.get('SECRET')));
-app.use(session({
-	secret: config.get('session:secret'),
-	resave: false,
-	saveUninitialized: true,
-	cookie: {secure: false, httpOnly: true},
-	store: new Mongostore({url: config.get('db:uri')})
-}));
+
+session.setupHTTPSessions(app);
 
 // Passport init
 app.use(passport.initialize());
