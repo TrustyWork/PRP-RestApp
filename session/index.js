@@ -10,15 +10,14 @@ const sessionMW = session({
 	store: new Mongostore({ url: config.get('db:uri') })
 })
 
-exports.setupHTTPSessions = function (app) {
+exports.setupHTTP = function (app) {
 
 	app.use(sessionMW);
 }
 
-exports.setupWSSession = function (ws) {
+exports.setupIO = function (io) {
 
-	ws.use((socket, next) => {
-		sessionMW(socket.handshake, {}, next); //(socket.request, socket.request.res, next);
+	io.use((socket, next) => {
+		sessionMW(socket.handshake, {}, next);
 	});
-
 }
