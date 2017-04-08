@@ -4,11 +4,10 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const session = require('session');
+
+const sessionMW = require('storage').sessionMW;
 
 const config = require('config');
-
-
 
 
 const passport = require('passport');
@@ -34,7 +33,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser(config.get('SECRET')));
 
-session.setupHTTP(app);
+//storage.session.setupHTTP(app);
+app.use(sessionMW);
+
 
 // Passport init
 app.use(passport.initialize());

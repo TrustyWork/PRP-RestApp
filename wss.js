@@ -1,14 +1,13 @@
-const session = require('session');
+const sessionMW = require('storage').sessionMW;
 
 module.exports = function (io) {
 
 	module.exports = io;
 
-// setup sessions
-	session.setupIO(io)
+	io.use((socket, next) => {
+		sessionMW(socket.handshake, {}, next);
+	});
 
-// io routes
+	// io routes
 	require('routes_io/heartbeat');
-
-
 }
