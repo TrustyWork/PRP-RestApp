@@ -1,6 +1,6 @@
-const websocketServer = require('./index');
+const io = require('wss');
 
-websocketServer.on('connection', function (client) {
+io.on('connection', function (client) {
 	console.log('connected!');
 	//hertbeat
 	setInterval(() => {
