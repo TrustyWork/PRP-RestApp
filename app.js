@@ -12,20 +12,7 @@ const Mongostore = require('connect-mongo')(session);
 const config = require('config');
 
 
-//Mongoose
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 
-mongoose.connect(config.get('db:uri'));
-const db = mongoose.connection;
-
-db.on('error', function (err) {
-	console.error('connection error:', err.message);
-});
-
-db.once('open', function () {
-	console.info('Connected to DB!');
-});
 
 const passport = require('passport');
 
