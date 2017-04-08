@@ -37,9 +37,36 @@ const UserSchema = {
 	modifyTime: {
 		type: Date, default: Date.now
 	}
-}
+};
 
 const User = new Schema(UserSchema);
+
+
+User.statics.findOrCreate = function (profile, cb) {
+
+	let prop = `auth.${profile.provider}.id`;
+	let query = {[prop]: profile.id};
+	console.log(query);
+	this.findOne(query, (err, user) => {
+		if (err) {
+			return cb(err)
+		}
+
+		if (!user) {
+			user = new this({username: profile.username});
+			user.auth[profile.provider] = profile;
+			user.save(function (err) {
+				if (err) {
+					return cb(err);
+				}
+				return cb(null, user);
+			})
+		}
+		return cb(null, user);
+	})
+};
+
+
 
 User.plugin(passportLocalMongoose, {
 	limitAttempts: false,
