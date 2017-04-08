@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "SET NODE_PATH=.& node ./bin/www"
+    "start": "SET NODE_PATH=.& node ./bin/www",
+	"linstart": "NODE_PATH=. node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
