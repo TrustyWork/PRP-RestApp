@@ -1,42 +1,42 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
 
-const UserSchema = {
+var UserSchema = {
 
-	// _id will be created by Mongo
+    // _id will be created by Mongo
 
-	role: {
-		stuff: [{
-			type: Schema.Types.ObjectId,
-			ref: 'Rest'
-		}],
-		restorator: [{
-			type: Schema.Types.ObjectId,
-			ref: 'Rest'
-		}]
-	},
+    role: {
+        stuff: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Rest'
+        }],
+        restorator: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Rest'
+        }]
+    },
 
 	auth: {
-		instagram: Schema.Types.Mixed
+		instagram: Schema.Types.Mixed,
 		// fb: Schema.Types.Mixed,
-		// gl: Schema.Types.Mixed
+		google: Schema.Types.Mixed
 	},
 
-	birthday: {
-		type: Date
-	},
+    birthday: {
+        type: Date
+    },
 
-	gender: {
-		type: String
-	},
+    gender: {
+        type: String
+    },
 
-	createTime: {
-		type: Date, default: Date.now
-	},
-	modifyTime: {
-		type: Date, default: Date.now
-	},
+    createTime : {
+        type: Date, default: Date.now
+    },
+    modifyTime : {
+        type: Date, default: Date.now
+    },
 
 }
 
