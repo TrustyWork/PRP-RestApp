@@ -10,4 +10,5 @@ module.exports = function (io) {
 
 	// io routes
 	require('routes_io/heartbeat');
+	require('routes_io/rooms');
 }
