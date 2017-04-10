@@ -15,7 +15,6 @@ passport.use(new InstagramStrategy(
 	},
 
 	function (accessToken, refreshToken, profile, done) {
-
 		userModel.findOrCreate(profile, (err, user) => {
 			if (err) { return done(err); }
 			return done(null, user);

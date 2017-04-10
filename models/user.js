@@ -1,8 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
-
-var UserSchema = {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
+const UserSchema = {
 
     // _id will be created by Mongo
 
@@ -44,11 +43,9 @@ const User = new Schema(UserSchema);
 
 User.statics.findOrCreate = function (profile, cb) {
 
-	let self = this;
-
 	let prop = `auth.${profile.provider}.id`
 	let query = { [prop]: profile.id };
-	console.log(query);
+
 	this.findOne(query, (err, user) => {
 		if (err) { return cb(err) }
 
@@ -64,7 +61,6 @@ User.statics.findOrCreate = function (profile, cb) {
 		}
 		return cb(null, user);
 	})
-
 }
 
 User.plugin(passportLocalMongoose, {
