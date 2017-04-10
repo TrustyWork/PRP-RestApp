@@ -33,9 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser(config.get('SECRET')));
 
-//storage.session.setupHTTP(app);
 app.use(sessionMW);
-
 
 // Passport init
 app.use(passport.initialize());
