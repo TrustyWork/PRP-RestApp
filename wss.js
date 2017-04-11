@@ -4,6 +4,7 @@ const sessionMW = require('storage').sessionMW;
 module.exports = function (io) {
 
 	module.exports = io;
+
 	app.emit('restapp_wssready');
 
 	io.use((socket, next) => {
