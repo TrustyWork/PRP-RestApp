@@ -17,7 +17,7 @@ const passport = require('passport');
 var index = require('routes/index');
 var users = require('routes/users');
 var api = require('routes/api');
-var auth = require('routes/auth');
+//var auth = require('routes/auth');
 
 
 const app = express();
@@ -48,9 +48,11 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 //open routes
-app.use('/', index);
-app.use('/api', api);
-app.use('/auth', auth);
+//delayed routes init to wait io
+app.on('restapp_wssready', (_x) => {
+	app.use('/', index);
+	app.use('/api', api);
+	app.use('/auth', require('routes/auth'));
 
 
 // check auth middleware
@@ -85,5 +87,7 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error');
 });
+
+})
 
 module.exports = app;
