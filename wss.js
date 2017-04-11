@@ -14,4 +14,10 @@ module.exports = function (io) {
 	// io routes
 	require('routes_io/heartbeat');
 	require('routes_io/rooms');
+
+	//io custom methods
+	io.sendToUid = function(uid,data) {
+		if ( /^uid_.+/.test )
+		io.to(uid).emit('restapp_roomMessage',data);
+	}
 }

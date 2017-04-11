@@ -8,7 +8,7 @@ io.on('connection', (socket) => {
 		userModel.findByUsername(socket.handshake.session.passport.user, (err, user) => {
 			if (err) { return err }
 			if (user) {
-				socket.join(user._id.toString());
+				socket.join(`uid_${user._id.toString()}`);
 			}
 		})
 	}

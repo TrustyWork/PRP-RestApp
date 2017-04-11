@@ -16,6 +16,10 @@ socket.on('new_user',(user)=>{
 	console.log('new user!',user);
 })
 
+socket.on('restapp_roomMessage',(msg)=>{
+	console.log(msg);
+})
+
 //socket.emit('ping');
 
 setInterval(() => {
