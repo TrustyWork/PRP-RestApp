@@ -17,7 +17,7 @@ module.exports = function (io) {
 
 	//io custom methods
 	io.sendToUid = function(uid,data) {
-		if ( /^uid_.+/.test )
+		if ( /^uid_.+/.test(uid) )
 		io.to(uid).emit('restapp_roomMessage',data);
 	}
 }
