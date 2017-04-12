@@ -1,134 +1,103 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('session');
 
-//Sessions support
-var session = require('express-session');
-var Mongostore = require('connect-mongo')(session);
+const config = require('config');
 
-//models import
-var userModel =  require('models/user');
-
-//nconf
-var nconf = require('nconf');
-nconf.argv()
-    .env()
-    .file({ file: 'appconfig.json' });
 
 //Mongoose
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-mongoose.connect(nconf.get('DB_URI'));
-var db = mongoose.connection;
+mongoose.connect(config.get('db:uri'));
+const db = mongoose.connection;
 
 db.on('error', function (err) {
-    console.error('connection error:', err.message);
+	console.error('connection error:', err.message);
 });
 
 db.once('open', function () {
-    console.info('Connected to DB!');
+	console.info('Connected to DB!');
 });
 
-//passportjs
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
-passport.use(new LocalStrategy(
-  {
-    usernameField: 'username',
-    passwordField: 'password'
-  }, userModel.authenticate()
-));
+const passport = require('passport');
 
 
 //Routes
 var index = require('routes/index');
 var users = require('routes/users');
 var api = require('routes/api');
-//var auth = require('routes/auth');
+var auth = require('routes/auth');
 
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
+// uncomment after placing your favicon in /puuserModel.register(new userModel({username: profile.username})}blic
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser(nconf.get('SECRET')));
-app.use(session({
-  secret: nconf.get('SECRET'),
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false, httpOnly: true },
-  store: new Mongostore({ url: nconf.get('DB_URI')})
-}))
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser(config.get('SECRET')));
+
+session.setupHTTP(app);
 
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.use(require('node-sass-middleware')({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public'),
-    indentedSyntax: true,
-    sourceMap: true
+	src: path.join(__dirname, 'public'),
+	dest: path.join(__dirname, 'public'),
+	indentedSyntax: false,
+	sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //open routes
 app.use('/', index);
 app.use('/api', api);
-
-//auth
-app.use('/auth',
-  passport.authenticate('local', {
-    successRedirect: '/users',
-    failureRedirect: '/',
-    failureFlash: false
-  }));
+app.use('/auth', auth);
 
 
 // check auth middleware
-var checkAuth = function (req, res, next) {
-    if (req.user)
-    { next() }
-    else
-    { res.redirect('/') }
+const checkAuth = function (req, res, next) {
+	if (req.user) {
+		next()
+	}
+	else {
+		res.redirect('/')
+	}
 }
 
 // restricted access
 app.use('/users', checkAuth, users);
 
 
-
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+	let err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+	// set locals, only providing error in development
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 module.exports = app;

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "SET NODE_PATH=.& node ./bin/www"
+    "start": "SET NODE_PATH=.& node ./bin/www",
+	"linstart": "NODE_PATH=. node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -17,6 +18,8 @@
     "nconf": "^0.8.4",
     "node-sass-middleware": "0.9.8",
     "passport": "^0.3.2",
+    "passport-google-auth": "^1.0.1",
+    "passport-instagram": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "pug": "~2.0.0-beta6",
     "serve-favicon": "^2.3.2",

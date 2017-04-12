@@ -17,11 +17,11 @@ var UserSchema = {
         }]
     },
 
-    auth: {     
-
-        // fb: Schema.Types.Mixed,
-        // gl: Schema.Types.Mixed
-    },
+	auth: {
+		instagram: Schema.Types.Mixed,
+		// fb: Schema.Types.Mixed,
+		google: Schema.Types.Mixed
+	},
 
     birthday: {
         type: Date
@@ -40,10 +40,35 @@ var UserSchema = {
 
 }
 
-var User = new Schema(UserSchema);
+const User = new Schema(UserSchema);
+
+User.statics.findOrCreate = function (profile, cb) {
+
+	let self = this;
+
+	let prop = `auth.${profile.provider}.id`
+	let query = { [prop]: profile.id };
+	console.log(query);
+	this.findOne(query, (err, user) => {
+		if (err) { return cb(err) }
+
+		if (!user) {
+			user = new self({ username: profile.username });
+			user.auth[profile.provider] = profile;
+			user.save(function (err) {
+				if (err) {
+					return cb(err);
+				}
+				return cb(null, user);
+			})
+		}
+		return cb(null, user);
+	})
+
+}
 
 User.plugin(passportLocalMongoose, {
-limitAttempts: false,
-     });
+	limitAttempts: false,
+});
 
 module.exports = mongoose.model('User', User);

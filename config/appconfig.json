@@ -1,0 +1,23 @@
+{
+	"rootURL": "http://localhost",
+	"port": 4000,
+	"db": {
+		"uri": "mongodb://localhost/restapp"
+	},
+	"session": {
+		"secret": "RestoSecret"
+	},
+
+	"auth": {
+		"insta": {
+			"clientID": "4d2e2066f3c7416c884c408b5d429365",
+			"clientSecret": "b030fb82b9144ba581584f15d5179bce",
+			"callbackPath": "/auth/insta/callback"
+		},
+		"googleAuth": {
+			"clientID": "834893102671-6t94l01kuinefcn4m7stc252d8qtlkvs.apps.googleusercontent.com",
+				"clientSecret": "D6Ir4dkml4FdtL8ihwTiQJ74",
+				"callbackURL": "/auth/gl/callback"
+		}
+	}
+}

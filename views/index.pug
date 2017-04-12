@@ -1,14 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(action = "/auth" method="post")
-    input(type ='text' name='username')
-    input(type ='text' name='password')
-    input(type="submit" value="Login" )
-  br
-  form(action = "/api/register" method="post")
-    input(type ='text' name='username')
-    input(type ='text' name='password')
-    input(type="submit" value="Create New User" )
+	h1= title
+	p Welcome to #{title}
+	form(action = "/auth/local" method="post")
+		input(type ='text' name='username')
+		input(type ='text' name='password')
+		input(type="submit" value="Login" )
+	br
+	form(action = "/api/register" method="post")
+		input(type ='text' name='username')
+		input(type ='text' name='password')
+		input(type="submit" value="Create New User" )
+	br
+	a(href="/auth/insta") auth with Instagram
+	br
+	a(href="/auth/gl") auth with Google
