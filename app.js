@@ -4,9 +4,9 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const session = require('session');
+const session = require('express-session');
 
-const config = require('config');
+const config = require('./config/appconfig.json');
 
 
 //Mongoose
@@ -75,7 +75,7 @@ const checkAuth = function (req, res, next) {
 	else {
 		res.redirect('/')
 	}
-}
+};
 
 // restricted access
 app.use('/users', checkAuth, users);

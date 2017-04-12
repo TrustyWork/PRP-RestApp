@@ -3,7 +3,7 @@ const router = express.Router();
 
 const userModel = require('models/user');
 
-const passport = require('passport')
+const passport = require('passport');
 const InstagramStrategy = require('passport-instagram');
 const config = require('config');
 
@@ -19,7 +19,7 @@ passport.use(new InstagramStrategy(
 		userModel.findOrCreate(profile, (err, user) => {
 			if (err) { return done(err); }
 			return done(null, user);
-		});
+	});
 	}
 ));
 

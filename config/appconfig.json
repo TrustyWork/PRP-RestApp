@@ -18,6 +18,11 @@
 			"clientID": "834893102671-6t94l01kuinefcn4m7stc252d8qtlkvs.apps.googleusercontent.com",
 				"clientSecret": "D6Ir4dkml4FdtL8ihwTiQJ74",
 				"callbackURL": "/auth/gl/callback"
+		},
+		"linkedinAuth": {
+			"clientID": "861qfhb3jll33q",
+			"clientSecret": "F8oUmz7pCiYUCKcK",
+			"callbackURL": "/auth/linked/callback"
 		}
 	}
 }
