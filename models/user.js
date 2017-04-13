@@ -18,7 +18,7 @@ const UserSchema = {
 	},
 
 	auth: {
-		vk: Schema.Types.Mixed
+		vkontakte: Schema.Types.Mixed
 		// fb: Schema.Types.Mixed,
 		// gl: Schema.Types.Mixed
 	},
@@ -46,12 +46,13 @@ User.statics.findOrCreate = function (profile, cb) {
 
 	let prop = `auth.${profile.provider}.id`;
 	let query = {[prop]: profile.id};
-	console.log(query);
+	console.log(profile.id + " this is ID");
 	this.findOne(query, (err, user) => {
 		if (err) {
 			return cb(err)
 		}
-
+		//console.log(profile + " this is  profiel");
+		//console.log(user + " this is user")
 		if (!user) {
 			user = new this({username: profile.username});
 			user.auth[profile.provider] = profile;
@@ -62,6 +63,7 @@ User.statics.findOrCreate = function (profile, cb) {
 				return cb(null, user);
 			})
 		}
+		//console.log(user + " this is user");
 		return cb(null, user);
 	})
 };

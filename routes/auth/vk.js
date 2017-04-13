@@ -26,7 +26,7 @@ passport.use('vkontakte', new PassportVkStrategy(
 
 
 router.get('/',
-	passport.authenticate('vkontakte')
+	passport.authenticate('vkontakte', {scope: ['status', 'email', 'friends', 'notify']})
 );
 
 router.get('/callback',
