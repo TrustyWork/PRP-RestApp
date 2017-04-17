@@ -10,9 +10,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const Mongostore = require('connect-mongo')(session);
 
-//models import
-//const userModel = require('models/user');
-
 const config = require('config');
 
 
@@ -31,9 +28,8 @@ db.once('open', function () {
 	console.info('Connected to DB!');
 });
 
-
-//passportjs
 const passport = require('passport');
+
 
 //Routes
 var index = require('routes/index');
@@ -48,7 +44,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
+// uncomment after placing your favicon in /puuserModel.register(new userModel({username: profile.username})}blic
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -65,7 +61,6 @@ app.use(session({
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use(require('node-sass-middleware')({
 	src: path.join(__dirname, 'public'),
@@ -103,8 +98,9 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res) {
+app.use(function (err, req, res, next) {
 	// set locals, only providing error in development
+
 	res.locals.message = err.message;
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 

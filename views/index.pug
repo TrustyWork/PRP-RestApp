@@ -3,7 +3,7 @@ extends layout
 block content
 	h1= title
 	p Welcome to #{title}
-	form(action = "/auth" method="post")
+	form(action = "/auth/local" method="post")
 		input(type ='text' name='username')
 		input(type ='text' name='password')
 		input(type="submit" value="Login" )
@@ -12,6 +12,8 @@ block content
 		input(type ='text' name='username')
 		input(type ='text' name='password')
 		input(type="submit" value="Create New User" )
+	br
+	a(href="/auth/insta") auth with Instagram
 
 	div(id="vk_auth")
 		a(href="/auth/vk") auth with VK
