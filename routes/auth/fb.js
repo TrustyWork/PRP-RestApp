@@ -20,10 +20,9 @@ passport.use(new FacebookStrategy({
     }
 ));
 
-router.get('/', passport.authenticate('facebook', {
-    scope: 'profile'}));
+router.get('/', passport.authenticate('facebook'));
 
-router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/'}),
+router.get('/callback', passport.authenticate('facebook', { failureRedirect: '/'}),
     function (req, res) {
         res.redirect('/users');
     });
