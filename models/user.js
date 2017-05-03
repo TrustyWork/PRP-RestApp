@@ -34,7 +34,6 @@ var UserSchema = {
         type: String
     },
 
-<<<<<<< HEAD
     createTime : {
         type: Date, default: Date.now
     },
@@ -43,15 +42,6 @@ var UserSchema = {
     },
 
 }
-=======
-	createTime: {
-		type: Date, default: Date.now
-	},
-	modifyTime: {
-		type: Date, default: Date.now
-	}
-};
->>>>>>> auth_vk
 
 const User = new Schema(UserSchema);
 
