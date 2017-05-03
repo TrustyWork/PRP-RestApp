@@ -19,7 +19,7 @@ var UserSchema = {
 
 	auth: {
 		instagram: Schema.Types.Mixed,
-		// fb: Schema.Types.Mixed,
+		facebook: Schema.Types.Mixed,
 		google: Schema.Types.Mixed
 	},
 

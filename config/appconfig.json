@@ -16,8 +16,13 @@
 		},
 		"googleAuth": {
 			"clientID": "834893102671-6t94l01kuinefcn4m7stc252d8qtlkvs.apps.googleusercontent.com",
-				"clientSecret": "D6Ir4dkml4FdtL8ihwTiQJ74",
-				"callbackURL": "/auth/gl/callback"
+			"clientSecret": "D6Ir4dkml4FdtL8ihwTiQJ74",
+			"callbackURL": "/auth/gl/callback"
+		},
+		"facebookAuth": {
+			"clientID": "282912188816786",
+			"clientSecret": "a867983fa0b43f466c4945442d5a2407",
+			"callbackURL": "/auth/fb/callback"
 		}
 	}
 }

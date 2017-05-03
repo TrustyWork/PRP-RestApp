@@ -5,6 +5,7 @@ const router = express.Router();
 const insta = require('./insta');
 const gl = require('./gl');
 const local = require('./local');
+const fb = require('./fb');
 const passport = require('passport');
 const userModel = require('models/user');
 
@@ -15,6 +16,7 @@ passport.deserializeUser(userModel.deserializeUser());
 router.use('/insta', insta);
 router.use('/gl', gl);
 router.use('/local', local);
+router.use('/fb', fb);
 
 router.get('/', function (req, res) {
 	res.send('Auth route')
