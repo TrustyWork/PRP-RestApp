@@ -18,7 +18,7 @@ const UserSchema = {
 	},
 
 	auth: {
-		vkontakte: Schema.Types.Mixed
+		vkontakte: Schema.Types.Mixed,
 		instagram: Schema.Types.Mixed
 		// fb: Schema.Types.Mixed,
 		// gl: Schema.Types.Mixed
