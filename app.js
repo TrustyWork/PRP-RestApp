@@ -4,7 +4,15 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+<<<<<<< HEAD
 const session = require('session');
+=======
+
+
+//Sessions support
+const session = require('express-session');
+const Mongostore = require('connect-mongo')(session);
+>>>>>>> auth_vk
 
 const config = require('config');
 
@@ -75,7 +83,7 @@ const checkAuth = function (req, res, next) {
 	else {
 		res.redirect('/')
 	}
-}
+};
 
 // restricted access
 app.use('/users', checkAuth, users);

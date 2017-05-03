@@ -9,10 +9,10 @@ io.on('connection', function (client) {
 
 	//ping responder
 
-	client.on('p-i-n-g', (msg) => {
-		console.log('p-i-n-g');
-		client.emit('p-o-n-g', {})  // :-)
-
-	});
+	// client.on('p-i-n-g', (msg) => {
+	// 	console.log('p-i-n-g');
+	// 	client.emit('p-o-n-g', {})  // :-)
+	//
+	// });
 
 });
