@@ -18,7 +18,7 @@ passport.use(new LocalStrategy(
 //local auth handler
 router.post('/',
 		passport.authenticate('local', {
-		successRedirect: '/users',
+		successRedirect: '/auth/postauth',
 		failureRedirect: '/',
 		failureFlash: false
 	}));

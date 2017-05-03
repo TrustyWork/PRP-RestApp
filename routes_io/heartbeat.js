@@ -1,18 +1,17 @@
 const io = require('wss');
 
-io.on('connection', function (client) {
-	console.log('connected!');
+io.on('connection', function (socket) {
+
 	//hertbeat
 	setInterval(() => {
-		client.emit('tic-tac', 'I\'m alive')
+		socket.emit('tic-tac', 'I\'m alive')
 	}, 10000);
 
 	//ping responder
+	socket.on('p-i-n-g', (msg) => {
+		console.log('p-i-n-g, current rooms:',socket.rooms);
+		socket.emit('p-o-n-g', {})  // :-)
 
-	// client.on('p-i-n-g', (msg) => {
-	// 	console.log('p-i-n-g');
-	// 	client.emit('p-o-n-g', {})  // :-)
-	//
-	// });
+	});
 
 });

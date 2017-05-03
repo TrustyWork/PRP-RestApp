@@ -15,7 +15,6 @@ passport.use(new InstagramStrategy(
 	},
 
 	function (accessToken, refreshToken, profile, done) {
-
 		userModel.findOrCreate(profile, (err, user) => {
 			if (err) { return done(err); }
 			return done(null, user);
@@ -28,7 +27,7 @@ router.get('/', passport.authenticate('instagram'));
 
 router.get('/callback', passport.authenticate('instagram', { failureRedirect: '/' }),
 	function (req, res) {
-		res.redirect('/users');
+		res.redirect('/auth/postauth');
 	});
 
 

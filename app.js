@@ -4,34 +4,13 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const session = require('session');
+
+const sessionMW = require('storage').sessionMW;
 
 const config = require('config');
 
 
-//Mongoose
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-
-mongoose.connect(config.get('db:uri'));
-const db = mongoose.connection;
-
-db.on('error', function (err) {
-	console.error('connection error:', err.message);
-});
-
-db.once('open', function () {
-	console.info('Connected to DB!');
-});
-
 const passport = require('passport');
-
-
-//Routes
-var index = require('routes/index');
-var users = require('routes/users');
-var api = require('routes/api');
-var auth = require('routes/auth');
 
 
 const app = express();
@@ -44,10 +23,10 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(config.get('SECRET')));
 
-session.setupHTTP(app);
+app.use(sessionMW);
 
 // Passport init
 app.use(passport.initialize());
@@ -61,43 +40,47 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//open routes
-app.use('/', index);
-app.use('/api', api);
-app.use('/auth', auth);
+//delayed routes init.
+app.once('restapp_wssready', () => {
+	//open routes
+	app.use('/', require('routes/index'));
+	app.use('/api', require('routes/api'));
+	app.use('/auth', require('routes/auth'));
 
 
-// check auth middleware
-const checkAuth = function (req, res, next) {
-	if (req.user) {
-		next()
+	// check auth middleware
+	const checkAuth = function (req, res, next) {
+		if (req.user) {
+			next()
+		}
+		else {
+			res.redirect('/')
+		}
 	}
-	else {
-		res.redirect('/')
-	}
-};
 
-// restricted access
-app.use('/users', checkAuth, users);
+	// restricted access
+	app.use('/users', checkAuth, require('routes/users'));
 
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	let err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
+	// catch 404 and forward to error handler
+	app.use(function (req, res, next) {
+		let err = new Error('Not Found');
+		err.status = 404;
+		next(err);
+	});
 
-// error handler
-app.use(function (err, req, res, next) {
-	// set locals, only providing error in development
+	// error handler
+	app.use(function (err, req, res, next) {
+		// set locals, only providing error in development
 
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+		res.locals.message = err.message;
+		res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
-});
+		// render the error page
+		res.status(err.status || 500);
+		res.render('error');
+	});
+
+})
 
 module.exports = app;
