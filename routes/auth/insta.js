@@ -28,7 +28,7 @@ router.get('/', passport.authenticate('instagram'));
 
 router.get('/callback', passport.authenticate('instagram', { failureRedirect: '/' }),
 	function (req, res) {
-		res.redirect('/users');
+		res.redirect('/auth/postauth');
 	});
 
 

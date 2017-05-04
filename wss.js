@@ -1,14 +1,23 @@
-const session = require('session');
+const app = require('app');
 
 module.exports = function (io) {
 
 	module.exports = io;
 
-// setup sessions
-	session.setupIO(io)
+	app.emit('restapp_wssready');
 
-// io routes
+	io.use((socket, next) => {
+		sessionMW(socket.handshake, {}, next);
+	});
+
+	// io routes
 	require('routes_io/heartbeat');
+	require('routes_io/rooms');
 
+	//io custom methods
+	io.sendToUid = function(uid,data) {
+		if ( /^uid_.+/.test(uid) )
+		io.to(uid).emit('restapp_roomMessage',data);
+	}
 
 }

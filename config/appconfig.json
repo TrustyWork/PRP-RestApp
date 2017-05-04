@@ -1,6 +1,10 @@
 {
 	"rootURL": "http://localhost",
 	"port": 4000,
+	"app": {
+		"url": "http://127.0.0.1"
+	},
+
 	"db": {
 		"uri": "mongodb://localhost/restapp"
 	},
@@ -9,6 +13,12 @@
 	},
 
 	"auth": {
+		"vk": {
+			"APP_ID": "5968149",
+			"clientSecret": "4Kn8iPWJvsg9ZzAWzGb4"
+		},
+
+
 		"insta": {
 			"clientID": "4d2e2066f3c7416c884c408b5d429365",
 			"clientSecret": "b030fb82b9144ba581584f15d5179bce",
@@ -16,6 +26,7 @@
 		},
 		"googleAuth": {
 			"clientID": "834893102671-6t94l01kuinefcn4m7stc252d8qtlkvs.apps.googleusercontent.com",
+
 				"clientSecret": "D6Ir4dkml4FdtL8ihwTiQJ74",
 				"callbackURL": "/auth/gl/callback"
 		},
@@ -28,6 +39,15 @@
 			"clientID":"861qfhb3jll33q",
 			"clientSecret": "F8oUmz7pCiYUCKcK",
 			"callbackURL": "/auth/linkid/callback"
+
+			"clientSecret": "D6Ir4dkml4FdtL8ihwTiQJ74",
+			"callbackURL": "/auth/gl/callback"
+		},
+		"facebookAuth": {
+			"clientID": "282912188816786",
+			"clientSecret": "a867983fa0b43f466c4945442d5a2407",
+			"callbackURL": "/auth/fb/callback"
+
 		}
 	}
 }

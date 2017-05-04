@@ -12,9 +12,17 @@ socket.on('p-o-n-g', (msg) => {
 	console.log('pong', msg)
 });
 
+socket.on('new_user',(user)=>{
+	console.log('new user!',user);
+})
+
+socket.on('restapp_roomMessage',(msg)=>{
+	console.log(msg);
+})
+
 //socket.emit('ping');
 
 setInterval(() => {
 	console.log('pinging');
 	socket.emit('p-i-n-g', {})
-}, 2000);
+}, 10000);
