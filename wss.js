@@ -1,4 +1,5 @@
 const app = require('app');
+const sessionMW = require('storage').sessionMW;
 
 module.exports = function (io) {
 
