@@ -3,18 +3,18 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 const UserSchema = {
 
-    // _id will be created by Mongo
+	// _id will be created by Mongo
 
-    role: {
-        stuff: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Rest'
-        }],
-        restorator: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Rest'
-        }]
-    },
+	role: {
+		stuff: [{
+			type: Schema.Types.ObjectId,
+			ref: 'Rest'
+		}],
+		restorator: [{
+			type: Schema.Types.ObjectId,
+			ref: 'Rest'
+		}]
+	},
 
 	auth: {
 		instagram: Schema.Types.Mixed,
@@ -25,20 +25,20 @@ const UserSchema = {
 		// gl: Schema.Types.Mixed
 	},
 
-    birthday: {
-        type: Date
-    },
+	birthday: {
+		type: Date
+	},
 
-    gender: {
-        type: String
-    },
+	gender: {
+		type: String
+	},
 
-    createTime : {
-        type: Date, default: Date.now
-    },
-    modifyTime : {
-        type: Date, default: Date.now
-    },
+	createTime: {
+		type: Date, default: Date.now
+	},
+	modifyTime: {
+		type: Date, default: Date.now
+	},
 
 }
 
@@ -54,10 +54,9 @@ User.statics.findOrCreate = function (profile, cb) {
 		if (err) {
 			return cb(err)
 		}
-		//console.log(profile + " this is  profiel");
-		//console.log(user + " this is user")
+
 		if (!user) {
-			user = new this({username: profile.username});
+			user = new this({ username: profile.username });
 			user.auth[profile.provider] = profile;
 			user.save(function (err) {
 				if (err) {
@@ -66,8 +65,9 @@ User.statics.findOrCreate = function (profile, cb) {
 				return cb(null, user);
 			})
 		}
-		//console.log(user + " this is user");
-		return cb(null, user);
+		else {
+			return cb(null, user);
+		}
 	})
 };
 
