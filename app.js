@@ -4,9 +4,9 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const session = require('session');
 
-const config = require('./config/appconfig.json');
+const config = require('nconf');
 
 
 //Mongoose

@@ -14,10 +14,11 @@ const config = require('config');
 passport.use(new LinkedInStrategy({
         consumerKey: config.get('auth:linkedinAuth:clientID'),
         consumerSecret: config.get('auth:linkedinAuth:clientSecret'),
-        callbackURL: config.get('rootURL') + ':' + config.get('port') + config.get('auth:linkedinAuth:callbackPath')
+        callbackURL: config.get('rootURL') + ':' + config.get('port') + config.get('auth:linkedinAuth:callbackURL')
     },
     function(token, tokenSecret, profile, done) {
-        User.findOrCreate({ linkedinId: profile.id }, function (err, user) {
+		profile.username = profile.displayName;
+        userModel.findOrCreate(profile, function (err, user) {
             return done(err, user);
         });
     }

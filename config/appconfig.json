@@ -20,9 +20,14 @@
 				"callbackURL": "/auth/gl/callback"
 		},
 		"linkedinAuth": {
-			"clientID": "861qfhb3jll33q",
+			"clientID":"86jq2i4yl3iqcg",
+			"clientSecret": "rK7hGNBvgYKs4PE5",
+			"callbackURL": "/auth/linkid/callback"
+		},
+		"linkedinAuth-BAD": {
+			"clientID":"861qfhb3jll33q",
 			"clientSecret": "F8oUmz7pCiYUCKcK",
-			"callbackURL": "/auth/linked/callback"
+			"callbackURL": "/auth/linkid/callback"
 		}
 	}
 }
