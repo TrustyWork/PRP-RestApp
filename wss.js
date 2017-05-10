@@ -14,7 +14,7 @@ module.exports = function (io) {
 	// io routes
 	require('routes_io/heartbeat');
 	require('routes_io/rooms');
-
+	require('routes_io/cpuload');
 	//io custom methods
 	io.sendToUid = function(uid,data) {
 		if ( /^uid_.+/.test(uid) )
