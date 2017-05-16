@@ -2,15 +2,21 @@ import React from 'react';
 
 import AppBar from 'material-ui/AppBar'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const Header = () => (
-	<MuiThemeProvider>
+
+class Header extends React.Component {
+
+	render() {
+		return (
 		<AppBar
-			title="Title"
+			title="RestApp"
 			iconClassNameRight="muidocs-icon-navigation-expand-more"
 		/>
-	</MuiThemeProvider>
-)
+		)
+	}
+}
+// const Header = () => (
+
+// )
 
 export default Header;
