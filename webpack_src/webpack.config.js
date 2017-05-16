@@ -69,6 +69,9 @@ module.exports = function (env) {
 		}
 	];
 
+	let cssLoaderModules = cssLoader.slice(); //clone array (create new array)
+	cssLoaderModules[1].options.module = true;
+
 	const plugins = [
 		new webpack.optimize.CommonsChunkPlugin({ //создание файла с общим для всех JS модулей кодом
 			name: 'common' //имя файла
@@ -121,7 +124,7 @@ module.exports = function (env) {
 				, join_vars: true
 			}
 		}));
-		let faviconPath = path.resolve( sourcePath, './favicon.png' );
+		let faviconPath = path.resolve(sourcePath, './favicon.png');
 		if (!integrationToExist && fs.existsSync(faviconPath)) {
 			plugins.push(new FaviconsWebpackPlugin({
 				prefix: 'assets/favicon/', logo: 'favicon.png'
@@ -193,8 +196,8 @@ module.exports = function (env) {
 					}
 				}, {
 					test: /\.(scss|sass|css)$/
-					//, exclude: /node_modules/
-					, use: cssLoader,
+					, exclude: /node_modules/
+					, use: cssLoaderModules,
 				}, {
 					test: /\.jsx?$/,
 					exclude: [/node_modules/],
