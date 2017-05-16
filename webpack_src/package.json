@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"All good, the world is still spinning\"",
-    "start": "webpack-dev-server --env.dev_serv=true --env.sw=true --env.proxy_host=localhost",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --env.dev_serv=true --env.sw=true --env.proxy_host=localhost",
     "start_prod": "cross-env NODE_ENV=production webpack-dev-server --env.proxy_host=localhost",
     "build": "rimraf build && cross-env NODE_ENV=development webpack --env.sw=true --env.output_dir=./build",
     "dist": "rimraf dist && cross-env NODE_ENV=production webpack --env.sw=true --env.output_dir=./dist",
