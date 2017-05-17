@@ -36,6 +36,7 @@ module.exports = function (env) {
 		, host = env.host || 'localhost' //хост для WebpackDevServer
 		, port = env.port || 3000 //порт для WebpackDevServer
 		, proxyHost = env.proxy_host || 'localhost' //хост для WebpackDevServer
+		, proxyPort = env.proxy_port || 4000
 
 		, integrationToExist = false //true если нужны только js файлы для интеграции в существующий проект
 		, watch = (env && env.watch == 'true') ? true : false;
@@ -248,7 +249,7 @@ module.exports = function (env) {
 			, stats: stats
 			, noInfo: true // только ошибки и варнинги
 			, proxy: { // Прокси для пересылки запросов на бек
-				'*': 'http://127.0.0.1:4000'//'http://loc.12go.asia:80' //Все чего нет в src, пересылай на бек сервер
+				'*': `http://${proxyHost}:${proxyPort}` //Все чего нет в src, пересылай на бек сервер
 			}
 		}
 	}
