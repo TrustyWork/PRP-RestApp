@@ -8,8 +8,9 @@ import FontIcon from 'material-ui/FontIcon';
 import style from './style.scss'
 
 const socialBtnStyle = {
-	marginBottom: "14px",
-	border: "1px solid gray"
+	// marginBottom: "14px",
+	border: "1px solid rgba(100,100,100,0.5)",
+	textAlign: "left"
 };
 
 export default class AuthForm extends React.Component {
@@ -27,23 +28,13 @@ export default class AuthForm extends React.Component {
 	}
 
 	render() {
-		const actions = [
-			<FlatButton
-				label="Cancel"
-				primary={true}
-				onTouchTap={this.handleClose}
-			/>,
-		];
 
 		return (
-
 			<div>
 				<MenuItem primaryText="Login..." onTouchTap={this.handleOpen} />
-				{/*<FlatButton label="Modal Dialog" onTouchTap={this.handleOpen} />*/}
 				<Dialog
 					title="Create new account"
 					titleClassName={style.title}
-					actions={actions}
 					modal={false}
 					open={this.state.isShown}
 					onRequestClose={this.handleClose}
@@ -83,23 +74,26 @@ export default class AuthForm extends React.Component {
 							style={{ ...socialBtnStyle, color: "#000000", }}
 						/>
 					</div>
-
-					<div className={style.maincolumn}>
+					<div className = {style.middlecolumn}> <div className ={style.middlecolumntext} >or</div> </div>
+					<div className = {style.maincolumn}>
 						<TextField
 							hintText="Name"
+							fullWidth={true}
 						/>
 						<TextField
 							hintText="Email"
+							fullWidth={true}
 						/>
 						<TextField
 							hintText="Password"
+							fullWidth={true}
 						/>
 						<FlatButton
 							fullWidth={true}
 							backgroundColor="#CCCCC"
 							hoverColor="#CCCCCC"
 							label="Create account"
-							style={{ ...socialBtnStyle, color: "#000000", marginTop: '6px' }}
+							style={{ ...socialBtnStyle, color: "#000000"}}
 						/>
 					</div>
 				</Dialog>

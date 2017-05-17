@@ -48,7 +48,7 @@ module.exports = function (env) {
 			loader: 'css-loader'
 			, options: {
 				module: false
-				// , localIdentName: '[path][name]-[local]'
+				, localIdentName: '[path][name]-[local]'
 				, sourceMap: !isProd
 			}
 		}, {
