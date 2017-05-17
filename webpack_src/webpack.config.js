@@ -48,7 +48,7 @@ module.exports = function (env) {
 			loader: 'css-loader'
 			, options: {
 				module: false
-				, localIdentName: '[path][name]-[local]'
+				// , localIdentName: '[path][name]-[local]'
 				, sourceMap: !isProd
 			}
 		}, {
@@ -70,7 +70,7 @@ module.exports = function (env) {
 		}
 	];
 
-	let cssLoaderModules = cssLoader.slice(); //clone array (create new array)
+	let cssLoaderModules = JSON.parse(JSON.stringify(cssLoader)); //clone array (create new array)
 	cssLoaderModules[1].options.module = true;
 
 	const plugins = [
@@ -187,8 +187,8 @@ module.exports = function (env) {
 		}, module: {
 			rules: [
 				{
-					test: /\.(svg|ttf|woff2?)$/    //   /\.(html|svg|ttf|woff2?)$/
-					, exclude: /node_modules/
+					test: /\.(eot|svg|ttf|woff2?)$/    //   /\.(html|svg|ttf|woff2?)$/
+					//, exclude: /node_modules/
 					, use: {
 						loader: 'file-loader'
 						, options: {
@@ -199,6 +199,10 @@ module.exports = function (env) {
 					test: /\.(scss|sass|css)$/
 					, exclude: /node_modules/
 					, use: cssLoaderModules,
+				}, {
+					test: /\.(scss|sass|css)$/
+					, include: /node_modules/
+					, use: cssLoader,
 				}, {
 					test: /\.jsx?$/,
 					exclude: [/node_modules/],

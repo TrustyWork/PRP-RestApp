@@ -3,8 +3,10 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
+import FontIcon from 'material-ui/FontIcon';
 
 import style from './style.scss'
+
 const socialBtnStyle = {
 	marginBottom: "14px",
 	border: "1px solid gray"
@@ -53,28 +55,32 @@ export default class AuthForm extends React.Component {
 							backgroundColor="#3b5999"
 							hoverColor="#3b5999"
 							label="Connect with Facebook"
-							style={socialBtnStyle}
+							icon={<FontIcon className={"fa fa-facebook-official"} />}
+							style={{ ...socialBtnStyle, color: "#FFFFFF", }}
 						/>
 						<FlatButton
 							fullWidth={true}
 							backgroundColor="#dd4b39"
 							hoverColor="#dd4b39"
 							label="Connect with Google"
-							style={socialBtnStyle}
+							icon={<FontIcon className={"fa fa-google"} />}
+							style={{ ...socialBtnStyle, color: "#FFFFFF", }}
 						/>
 						<FlatButton
 							fullWidth={true}
 							backgroundColor="#0077b5"
 							hoverColor="#0077B5"
 							label="Connect with Linkedin"
-							style={socialBtnStyle}
+							icon={<FontIcon className={"fa fa-linkedin-square"} />}
+							style={{ ...socialBtnStyle, color: "#FFFFFF", }}
 						/>
 						<FlatButton
 							fullWidth={true}
 							backgroundColor="#FFFFFF"
 							hoverColor="#FFFFFF"
 							label="Connect with Instagram"
-							style={socialBtnStyle}
+							icon={<FontIcon className={"fa fa-instagram"} />}
+							style={{ ...socialBtnStyle, color: "#000000", }}
 						/>
 					</div>
 
@@ -93,7 +99,7 @@ export default class AuthForm extends React.Component {
 							backgroundColor="#CCCCC"
 							hoverColor="#CCCCCC"
 							label="Create account"
-							style={{...socialBtnStyle, marginTop: '6px'}}
+							style={{ ...socialBtnStyle, color: "#000000", marginTop: '6px' }}
 						/>
 					</div>
 				</Dialog>
