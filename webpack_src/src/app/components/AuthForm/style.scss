@@ -1,0 +1,29 @@
+.root {
+	display: flex;
+	justify-content: space-around;
+
+	div {
+		display: flex;
+		justify-content: space-around;
+		flex-direction: column;
+	}
+}
+
+.title {
+	text-align: center;
+}
+.body
+	{
+		display: flex;
+		justify-content: space-around;
+		flex-direction: row;
+
+	}
+.maincolumn {
+	width: 40%;
+	// border: 1px gray dotted;
+}
+
+.button {
+	margin-bottom: 10px;
+}
