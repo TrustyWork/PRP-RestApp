@@ -42,7 +42,6 @@ class MainPage extends React.Component {
 			});
 	}
 
-
 	render() {
 		return (<div>
 			<Header
@@ -50,6 +49,7 @@ class MainPage extends React.Component {
 				handleAuthFormHide={this.handleAuthFormHide}
 				isAuthFormShown={this.state.isAuthFormShown}
 				isAuthenticated={this.state.isAuthenticated}
+				userInfo={this.state.userInfo}
 			/>
 			<SideMenu />
 		</div>
