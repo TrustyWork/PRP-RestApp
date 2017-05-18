@@ -12,9 +12,32 @@ class MainPage extends React.Component {
 			userInfo: {},
 
 			//app state
-			isAuthFormShown: false,
+			isAuthFormShown: false
 		}
 
+	}
+
+	checkAuth = () =>
+		fetch('/api/whoami', { credentials: 'include' })
+			.then((response) => response.json())
+
+	processLogin = () => {
+		//hide loginForm
+		this.setState({ isAuthFormShown: false })
+		//fetch & update actual state
+		this.checkAuth()
+			.then((userinfo) => {
+				userinfo ?
+					this.setState({
+						userInfo: userinfo,
+						isAuthenticated: true
+					})
+					:
+					this.setState({
+						userInfo: {},
+						isAuthenticated: false
+					})
+			});
 	}
 
 	//Handlers for authForm
@@ -25,9 +48,32 @@ class MainPage extends React.Component {
 	handleAuthFormHide = () => {
 		this.setState({ isAuthFormShown: false })
 	}
+
+	handleAuthFormDoAuth = (provider) => {
+
+		const mapperURL = {
+			fb: '/auth/fb',
+			gl: '/auth/gl',
+			insta: '/auth/insta',
+			vk: '/auth/vk',
+			in: '/auth/linkid'
+		}
+
+		let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window', "menubar=no,location=no,resizable=no,scrollbars=yes,status=no")
+		let authChecker = setInterval(() => {
+			if (authWin.closed) { clearInterval(authChecker); }
+			this.checkAuth().then((userData) => {
+				if (userData) {
+					authWin.close();
+					this.processLogin();
+				}
+			})
+		}
+			, 1000);
+	}
+
 	componentDidMount() {
-		fetch('/api/whoami', { credentials: 'include' })
-			.then((response) => response.json())
+		this.checkAuth()
 			.then((userinfo) => {
 				userinfo ?
 					this.setState({
@@ -50,6 +96,7 @@ class MainPage extends React.Component {
 				isAuthFormShown={this.state.isAuthFormShown}
 				isAuthenticated={this.state.isAuthenticated}
 				userInfo={this.state.userInfo}
+				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
 			/>
 			<SideMenu />
 		</div>

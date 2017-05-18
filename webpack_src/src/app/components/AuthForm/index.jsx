@@ -8,12 +8,11 @@ import FontIcon from 'material-ui/FontIcon';
 import style from './style.scss'
 
 const socialBtnStyle = {
-	// marginBottom: "14px",
 	border: "1px solid rgba(100,100,100,0.5)",
 	textAlign: "left"
 };
 
-const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, ...props }) => {
+const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, handleAuthFormDoAuth, ...props }) => {
 	console.log('props in AuthForm', props);
 	return (
 		<div>
@@ -34,6 +33,7 @@ const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, ...
 						label="Connect with Facebook"
 						icon={<FontIcon className={"fa fa-facebook-official"} />}
 						style={{ ...socialBtnStyle, color: "#FFFFFF", }}
+						onTouchTap={() => handleAuthFormDoAuth('fb')}
 					/>
 					<FlatButton
 						fullWidth={true}
@@ -42,6 +42,7 @@ const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, ...
 						label="Connect with Google"
 						icon={<FontIcon className={"fa fa-google"} />}
 						style={{ ...socialBtnStyle, color: "#FFFFFF", }}
+						onTouchTap={() => handleAuthFormDoAuth('gl')}
 					/>
 					<FlatButton
 						fullWidth={true}
@@ -50,6 +51,7 @@ const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, ...
 						label="Connect with Linkedin"
 						icon={<FontIcon className={"fa fa-linkedin-square"} />}
 						style={{ ...socialBtnStyle, color: "#FFFFFF", }}
+						onTouchTap={() => handleAuthFormDoAuth('in')}
 					/>
 					<FlatButton
 						fullWidth={true}
@@ -58,6 +60,7 @@ const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, ...
 						label="Connect with Instagram"
 						icon={<FontIcon className={"fa fa-instagram"} />}
 						style={{ ...socialBtnStyle, color: "#000000", }}
+						onTouchTap={() => handleAuthFormDoAuth('insta')}
 					/>
 				</div>
 				<div className={style.middlecolumn}> <div className={style.middlecolumntext} >or</div> </div>
