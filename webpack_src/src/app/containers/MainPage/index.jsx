@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from 'app/components/Header.jsx';
 import SideMenu from 'app/components/SideMenu';
+import ImgList from 'app/components/ImgList';
 
 class MainPage extends React.Component {
 	constructor(props) {
@@ -99,6 +100,7 @@ class MainPage extends React.Component {
 				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
 			/>
 			<SideMenu />
+			<ImgList />
 		</div>
 		)
 	}
