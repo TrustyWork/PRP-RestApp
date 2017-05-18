@@ -14,7 +14,6 @@ class SideMenu extends Drawer {
 	}
 
 	render() {
-		console.log(style);
 		return (
 			<Drawer containerClassName={style.red} open={this.state.open} >
 				<MenuItem leftIcon={<ActionGrade />} >Popular</MenuItem>

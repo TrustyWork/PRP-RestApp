@@ -6,39 +6,39 @@ import AuthForm from 'app/components/AuthForm'
 
 class Header extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = {
 
-			//user info
-			isAuthenticated: false,
-			userInfo: {},
+	// 		//user info
+	// 		isAuthenticated: false,
+	// 		userInfo: {},
 
-			//app state
-			isAuthFormShown: false,
-		}
+	// 		//app state
+	// 		isAuthFormShown: false,
+	// 	}
 
-		//	handleAuthFormShow = handleAuthFormShow.bind(this);
-		//	handleAuthFormHide = handleAuthFormHide.bind(this);
-	}
+	// }
 
-	//Handler for authForm
-	handleAuthFormShow = () => {
+	// //Handlers for authForm
+	// handleAuthFormShow = () => {
+	// 	this.setState({ isAuthFormShown: true })
+	// }
 
-		this.setState({ isAuthFormShown: true })
-	}
-	handleAuthFormHide = () => {
-		this.setState({ isAuthFormShown: false })
-	}
+	// handleAuthFormHide = () => {
+	// 	this.setState({ isAuthFormShown: false })
+	// }
+
 	render() {
 		return (
 			<AppBar
 				title="RestApp"
-				iconElementRight={<AuthForm
-					handleShow={this.handleAuthFormShow}
-					handleHide={this.handleAuthFormHide}
-					isShown={this.state.isAuthFormShown}
-				/>}
+				iconElementRight={
+					<AuthForm
+						handleShow={this.props.handleAuthFormShow}
+						handleHide={this.props.handleAuthFormHide}
+						isShown={this.props.isAuthFormShown}
+					/>}
 			/>
 		)
 	}
