@@ -15,29 +15,17 @@ const socialBtnStyle = {
 
 export default class AuthForm extends React.Component {
 
-	state = {
-		isShown: false
-	}
-
-	handleOpen = () => {
-		this.setState({ isShown: true })
-	}
-
-	handleClose = () => {
-		this.setState({ isShown: false })
-	}
-
 	render() {
 
 		return (
 			<div>
-				<MenuItem primaryText="Login..." onTouchTap={this.handleOpen} />
+				<MenuItem primaryText="Login..." onTouchTap={this.props.handleShow} />
 				<Dialog
 					title="Create new account"
 					titleClassName={style.title}
 					modal={false}
-					open={this.state.isShown}
-					onRequestClose={this.handleClose}
+					open={this.props.isShown}
+					onRequestClose={this.props.handleHide}
 					bodyClassName={style.body}
 				>
 					<div className={style.maincolumn}>

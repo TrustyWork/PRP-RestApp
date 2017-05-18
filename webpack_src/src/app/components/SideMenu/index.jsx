@@ -19,7 +19,6 @@ class SideMenu extends Drawer {
 			<Drawer containerClassName={style.red} open={this.state.open} >
 				<MenuItem leftIcon={<ActionGrade />} >Popular</MenuItem>
 				<MenuItem>Favorites</MenuItem>
-				<AuthForm />
 			</Drawer>
 		)
 	}
