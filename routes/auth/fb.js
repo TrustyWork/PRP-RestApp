@@ -9,7 +9,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(new FacebookStrategy({
 	'clientID': config.get('auth:facebookAuth:clientID'),
 	'clientSecret': config.get('auth:facebookAuth:clientSecret'),
-	'callbackURL': config.get('rootURL') + ':' + config.get('port') + config.get('auth:facebookAuth:callbackURL')
+	'callbackURL': config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:facebookAuth:callbackURL')
 },
 	function (accessToken, refreshToken, profile, done) {
 		profile.username = profile.displayName;

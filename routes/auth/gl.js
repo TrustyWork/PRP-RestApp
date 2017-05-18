@@ -9,7 +9,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     'clientID': config.get('auth:googleAuth:clientID'),
     'clientSecret': config.get('auth:googleAuth:clientSecret'),
-    'callbackURL': config.get('rootURL') + ':' + config.get('port') + config.get('auth:googleAuth:callbackURL')
+    'callbackURL': config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:googleAuth:callbackURL')
     },
     function(accessToken, refreshToken, profile, done) {
         profile.username = profile.displayName;
