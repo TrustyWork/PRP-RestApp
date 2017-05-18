@@ -11,7 +11,7 @@ passport.use('vkontakte', new PassportVkStrategy(
 	{
 		clientID: config.get("auth:vk:APP_ID"),
 		clientSecret: config.get("auth:vk:clientSecret"),
-		callbackURL: config.get("app:url") + ":" + config.get("port") + "/auth/vk/callback"
+		callbackURL: config.get("app:url") + ":" + config.get("callbackPort") + "/auth/vk/callback"
 	},
 	function (accessToken, refreshToken, params, profile, done) {
 		process.nextTick(function () {

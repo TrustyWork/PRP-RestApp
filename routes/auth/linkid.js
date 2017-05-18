@@ -14,7 +14,7 @@ const config = require('config');
 passport.use(new LinkedInStrategy({
         consumerKey: config.get('auth:linkedinAuth:clientID'),
         consumerSecret: config.get('auth:linkedinAuth:clientSecret'),
-        callbackURL: config.get('rootURL') + ':' + config.get('port') + config.get('auth:linkedinAuth:callbackURL')
+        callbackURL: config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:linkedinAuth:callbackURL')
     },
     function(token, tokenSecret, profile, done) {
 		profile.username = profile.displayName;
