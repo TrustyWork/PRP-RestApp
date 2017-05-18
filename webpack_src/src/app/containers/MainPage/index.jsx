@@ -25,6 +25,23 @@ class MainPage extends React.Component {
 	handleAuthFormHide = () => {
 		this.setState({ isAuthFormShown: false })
 	}
+	componentDidMount() {
+		fetch('/api/whoami', { credentials: 'include' })
+			.then((response) => response.json())
+			.then((userinfo) => {
+				userinfo ?
+					this.setState({
+						userInfo: userinfo,
+						isAuthenticated: true
+					})
+					:
+					this.setState({
+						userInfo: {},
+						isAuthenticated: false,
+					})
+			});
+	}
+
 
 	render() {
 		return (<div>
