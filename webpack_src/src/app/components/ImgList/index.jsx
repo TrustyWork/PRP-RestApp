@@ -16,7 +16,7 @@ const styles = {
     overflowX: 'auto',
   },
   titleStyle: {
-    color: 'rgb(0, 188, 212)',
+    color: 'rgb(255, 255, 255)',
   },
 };
 
@@ -31,9 +31,9 @@ const ImgList = ({tilesData, ...props}) => {
             {tilesData.map((tile,idx) => (
               <GridTile
                 key={idx}
-                title={tile.title}                
+                title={tile.title}
                 titleStyle={styles.titleStyle}
-                titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+                titleBackground="rgba(0,0,0,0.4)"
               >
                 <img src={tile.img} />
               </GridTile>
