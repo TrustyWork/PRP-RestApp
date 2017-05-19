@@ -13,7 +13,35 @@ class MainPage extends React.Component {
 			userInfo: {},
 
 			//app state
-			isAuthFormShown: false
+			isAuthFormShown: false,
+			isOnline: true,
+			tilesData: [
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Breakfast',
+					author: 'jill111',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Tasty burger',
+					author: 'pashminu',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Camera',
+					author: 'Danson67',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Morning',
+					author: 'fancycrave1',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Hats',
+					author: 'Hans',
+				}
+			]
 		}
 
 	}
@@ -100,7 +128,9 @@ class MainPage extends React.Component {
 				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
 			/>
 			<SideMenu />
-			<ImgList />
+			<ImgList
+				tilesData={this.state.tilesData}
+			/>
 		</div>
 		)
 	}
