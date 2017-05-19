@@ -5,7 +5,9 @@ import FlatButton from 'material-ui/FlatButton';
 import AuthForm from 'app/components/AuthForm';
 import Snackbar from 'material-ui/Snackbar';
 
-const Header = ({ isAuthenticated, isOnline, ...props }) => {
+import style from './style.scss'
+
+const Header = ({ isAuthenticated, ...props }) => {
 	console.log('props in Header', props);
 	return (
 		<AppBar
