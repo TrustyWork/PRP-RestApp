@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from 'app/components/Header.jsx';
+import Header from 'app/components/Header';
 import SideMenu from 'app/components/SideMenu';
 
 class MainPage extends React.Component {
