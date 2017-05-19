@@ -96,7 +96,7 @@ class MainPage extends React.Component {
 	}
 
 	handleAuthFormHide = () => {
-		this.setState({ AuthFormShown: false })
+		this.setState({ isAuthFormShown: false })
 	}
 
 	handleAuthFormDoAuth = (provider) => {
