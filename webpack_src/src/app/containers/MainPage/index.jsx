@@ -12,7 +12,8 @@ class MainPage extends React.Component {
 			userInfo: {},
 
 			//app state
-			isAuthFormShown: false
+			isAuthFormShown: false,
+			isOnline: true,
 		}
 
 	}
@@ -97,6 +98,7 @@ class MainPage extends React.Component {
 				isAuthenticated={this.state.isAuthenticated}
 				userInfo={this.state.userInfo}
 				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
+				isOnline={this.state.isOnline}
 			/>
 			<SideMenu />
 		</div>

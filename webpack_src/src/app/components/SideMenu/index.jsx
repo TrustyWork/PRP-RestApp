@@ -6,21 +6,13 @@ import AuthForm from '../AuthForm';
 
 import style from './style.scss';
 
-class SideMenu extends Drawer {
-
-	constructor(props) {
-		super(props);
-		this.state = { open: true };
-	}
-
-	render() {
-		return (
-			<Drawer containerClassName={style.red} open={this.state.open} >
-				<MenuItem leftIcon={<ActionGrade />} >Popular</MenuItem>
-				<MenuItem>Favorites</MenuItem>
-			</Drawer>
-		)
-	}
+const SideMenu = (props) => {
+	return (
+		<Drawer containerClassName={style.red} >
+			<MenuItem leftIcon={<ActionGrade />} >Popular</MenuItem>
+			<MenuItem>Favorites</MenuItem>
+		</Drawer>
+	)
 }
 
 export default SideMenu
