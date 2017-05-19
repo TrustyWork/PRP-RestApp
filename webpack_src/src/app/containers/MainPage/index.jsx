@@ -41,6 +41,28 @@ class MainPage extends React.Component {
 					title: 'Hats',
 					author: 'Hans',
 				}
+			],
+			sideMenu: [
+				{
+					item: 'Popular',
+					icon: 'fa fa-fire'
+
+				},
+				{
+					item: 'Favorites',
+					icon: 'fa fa-heart'
+
+				},
+				{
+					item: 'Promotional',
+					icon: 'fa fa-birthday-cake'
+
+				},
+				{
+					item: 'Hot',
+					icon: 'fa fa-exclamation-circle'
+
+				},
 			]
 		}
 
@@ -75,7 +97,7 @@ class MainPage extends React.Component {
 	}
 
 	handleAuthFormHide = () => {
-		this.setState({ isAuthFormShown: false })
+		this.setState({ ifa fa-birthday-cakesAuthFormShown: false })
 	}
 
 	handleAuthFormDoAuth = (provider) => {
@@ -128,7 +150,9 @@ class MainPage extends React.Component {
 				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
 				isOnline={this.state.isOnline}
 			/>
-			<SideMenu />
+			<SideMenu
+				sideMenu={this.state.sideMenu}
+			/>
 			<ImgList
 				tilesData={this.state.tilesData}
 			/>
