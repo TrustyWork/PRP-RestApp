@@ -3,34 +3,8 @@ import { GridList, GridTile } from 'material-ui/GridList';
 
 
 
-const ImgList = (props) => {
-  const tilesData = [
-    {
-      img: 'http://placehold.it/350x350',
-      title: 'Breakfast',
-      author: 'jill111',
-    },
-    {
-      img: 'http://placehold.it/350x350',
-      title: 'Tasty burger',
-      author: 'pashminu',
-    },
-    {
-      img: 'http://placehold.it/350x350',
-      title: 'Camera',
-      author: 'Danson67',
-    },
-    {
-      img: 'http://placehold.it/350x350',
-      title: 'Morning',
-      author: 'fancycrave1',
-    },
-    {
-      img: 'http://placehold.it/350x350',
-      title: 'Hats',
-      author: 'Hans',
-    }
-  ];
+const ImgList = ({tilesData, ...props}) => {
+  
   //const GridListExampleSingleLine = () => {
     return (
       <div style={{}}>
