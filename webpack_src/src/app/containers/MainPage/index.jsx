@@ -152,9 +152,6 @@ class MainPage extends React.Component {
 			<SideMenu
 				sideMenu={this.state.sideMenu}
 			/>
-			<ImgList
-				tilesData={this.state.tilesData}
-			/>
 		</div>
 		)
 	}
