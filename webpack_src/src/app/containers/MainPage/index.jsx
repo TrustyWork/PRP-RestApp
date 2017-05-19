@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from 'app/components/Header.jsx';
 import SideMenu from 'app/components/SideMenu';
+import ImgList from 'app/components/ImgList';
 
 class MainPage extends React.Component {
 	constructor(props) {
@@ -14,6 +15,55 @@ class MainPage extends React.Component {
 			//app state
 			isAuthFormShown: false,
 			isOnline: true,
+			tilesData: [
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Breakfast',
+					author: 'jill111',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Tasty burger',
+					author: 'pashminu',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Camera',
+					author: 'Danson67',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Morning',
+					author: 'fancycrave1',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Hats',
+					author: 'Hans',
+				}
+			],
+			sideMenu: [
+				{
+					item: 'Popular',
+					icon: 'fa fa-fire'
+
+				},
+				{
+					item: 'Favorites',
+					icon: 'fa fa-heart'
+
+				},
+				{
+					item: 'Promotional',
+					icon: 'fa fa-birthday-cake'
+
+				},
+				{
+					item: 'Hot',
+					icon: 'fa fa-exclamation-circle'
+
+				},
+			]
 		}
 
 	}
@@ -47,7 +97,7 @@ class MainPage extends React.Component {
 	}
 
 	handleAuthFormHide = () => {
-		this.setState({ isAuthFormShown: false })
+		this.setState({ ifa fa-birthday-cakesAuthFormShown: false })
 	}
 
 	handleAuthFormDoAuth = (provider) => {
@@ -100,7 +150,12 @@ class MainPage extends React.Component {
 				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
 				isOnline={this.state.isOnline}
 			/>
-			<SideMenu />
+			<SideMenu
+				sideMenu={this.state.sideMenu}
+			/>
+			<ImgList
+				tilesData={this.state.tilesData}
+			/>
 		</div>
 		)
 	}
