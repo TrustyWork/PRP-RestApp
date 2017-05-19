@@ -1,6 +1,11 @@
 import React from 'react';
+import io from 'socket.io-client';
+
 import Header from 'app/components/Header';
 import SideMenu from 'app/components/SideMenu';
+import OfflineNotifier from 'app/components/OfflineNotifier';
+
+
 
 class MainPage extends React.Component {
 	constructor(props) {
@@ -64,8 +69,13 @@ class MainPage extends React.Component {
 				},
 			]
 		}
-
+		this.socket = io(window.hostname);
+		this.socket.on('connect',this.handleOnline);
+		this.socket.on('disconnect',this.handleOffline);
 	}
+
+	handleOnline = () => {this.setState({ isOnline: true })};
+	handleOffline = () => {this.setState({ isOnline: false })};
 
 	checkAuth = () =>
 		fetch('/api/whoami', { credentials: 'include' })
@@ -152,6 +162,7 @@ class MainPage extends React.Component {
 			<SideMenu
 				sideMenu={this.state.sideMenu}
 			/>
+			<OfflineNotifier isOnline={this.state.isOnline} />
 		</div>
 		)
 	}
