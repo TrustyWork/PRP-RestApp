@@ -8,7 +8,7 @@ import style from './style.scss';
 
 const SideMenu = (props) => {
 	return (
-		<Drawer containerClassName={style.red} >
+		<Drawer >
 			<MenuItem leftIcon={<ActionGrade />} >Popular</MenuItem>
 			<MenuItem>Favorites</MenuItem>
 		</Drawer>
