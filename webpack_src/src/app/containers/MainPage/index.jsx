@@ -96,7 +96,7 @@ class MainPage extends React.Component {
 	}
 
 	handleAuthFormHide = () => {
-		this.setState({ ifa fa-birthday-cakesAuthFormShown: false })
+		this.setState({ AuthFormShown: false })
 	}
 
 	handleAuthFormDoAuth = (provider) => {
