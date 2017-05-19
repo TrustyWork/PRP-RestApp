@@ -7,7 +7,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import style from './style.scss'
 
-const Header = ({ isAuthenticated, ...props }) => {
+const Header = ({ isAuthenticated, isOnline, ...props }) => {
 	console.log('props in Header', props);
 	return (
 		<AppBar
