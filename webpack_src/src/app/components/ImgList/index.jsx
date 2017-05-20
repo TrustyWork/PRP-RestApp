@@ -31,7 +31,7 @@ const ImgList = ({tilesData, ...props}) => {
             {tilesData.map((tile,idx) => (
               <GridTile
                 key={idx}
-                title={tile.title}
+                title={<div>text</div>}
                 titleStyle={styles.titleStyle}
                 titleBackground="rgba(0,0,0,0.4)"
               >
