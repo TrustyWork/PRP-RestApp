@@ -1,26 +1,19 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import AuthForm from '../AuthForm';
+import FontIcon from 'material-ui/FontIcon'
 
 import style from './style.scss';
 
-class SideMenu extends Drawer {
-
-	constructor(props) {
-		super(props);
-		this.state = { open: true };
-	}
-
-	render() {
-		return (
-			<Drawer containerClassName={style.red} open={this.state.open} >
-				<MenuItem leftIcon={<ActionGrade />} >Popular</MenuItem>
-				<MenuItem>Favorites</MenuItem>
-			</Drawer>
-		)
-	}
+const SideMenu = ({ sideMenu, ...props }) => {
+	return (
+		<Drawer containerClassName={style.drawer}>
+			{sideMenu.map((itm)=>{ return (
+			<MenuItem key={itm.item} leftIcon ={<FontIcon className={itm.icon} />}>{itm.item}</MenuItem>
+			)
+			})}
+		</Drawer>
+	)
 }
 
 export default SideMenu

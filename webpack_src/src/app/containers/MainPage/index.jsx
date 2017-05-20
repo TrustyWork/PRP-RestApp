@@ -1,6 +1,12 @@
 import React from 'react';
-import Header from 'app/components/Header.jsx';
+import io from 'socket.io-client';
+
+import Header from 'app/components/Header';
 import SideMenu from 'app/components/SideMenu';
+import OfflineNotifier from 'app/components/OfflineNotifier';
+import ImgList from 'app/components/ImgList';
+
+
 
 class MainPage extends React.Component {
 	constructor(props) {
@@ -12,10 +18,65 @@ class MainPage extends React.Component {
 			userInfo: {},
 
 			//app state
-			isAuthFormShown: false
-		}
+			isAuthFormShown: false,
+			isOnline: true,
+			tilesData: [
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Breakfast',
+					author: 'jill111',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Tasty burger',
+					author: 'pashminu',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Camera',
+					author: 'Danson67',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Morning',
+					author: 'fancycrave1',
+				},
+				{
+					img: 'http://placehold.it/350x350',
+					title: 'Hats',
+					author: 'Hans',
+				}
+			],
+			sideMenu: [
+				{
+					item: 'Popular',
+					icon: 'fa fa-fire'
 
+				},
+				{
+					item: 'Favorites',
+					icon: 'fa fa-heart'
+
+				},
+				{
+					item: 'Promotional',
+					icon: 'fa fa-birthday-cake'
+
+				},
+				{
+					item: 'Hot',
+					icon: 'fa fa-exclamation-circle'
+
+				},
+			]
+		}
+		this.socket = io(window.hostname);
+		this.socket.on('connect',this.handleOnline);
+		this.socket.on('disconnect',this.handleOffline);
 	}
+
+	handleOnline = () => {this.setState({ isOnline: true })};
+	handleOffline = () => {this.setState({ isOnline: false })};
 
 	checkAuth = () =>
 		fetch('/api/whoami', { credentials: 'include' })
@@ -97,8 +158,15 @@ class MainPage extends React.Component {
 				isAuthenticated={this.state.isAuthenticated}
 				userInfo={this.state.userInfo}
 				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
+				isOnline={this.state.isOnline}
 			/>
-			<SideMenu />
+			<SideMenu
+				sideMenu={this.state.sideMenu}
+			/>
+			<OfflineNotifier isOnline={this.state.isOnline} />
+			<ImgList
+				tilesData={this.state.tilesData}
+			/>
 		</div>
 		)
 	}
