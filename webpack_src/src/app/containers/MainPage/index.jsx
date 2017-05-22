@@ -132,19 +132,21 @@ class MainPage extends React.Component {
 		let h = 600;
 		let left = (screen.width / 2) - (w / 2);
 		let top = (screen.height / 2) - (h / 2);
-		let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
+		var authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
 			`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
 
+		// authWin.onunload = function() {
+		// 	console.log('unload');
+		// 	socket.off('user_auth_ok'); }
+
+		let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
+
+
 		socket.once('user_auth_ok', () => {
+			clearTimeout(authTimeoutTimer);
 			if (!authWin.closed) { authWin.close(); }
 			this.processLogin();
 		})
-
-		let authTimeoutTimer = setTimeout(() => {
-			authWin.close();
-			socket.off('user_auth_ok');
-		}
-			, 90000)
 
 	}
 
