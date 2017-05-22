@@ -171,6 +171,7 @@ class MainPage extends React.Component {
 					userInfo={this.state.userInfo}
 					handleAuthFormDoAuth={this.handleAuthFormDoAuth}
 					isOnline={this.state.isOnline}
+					handleLogout={this.handleLogout}
 				/>
 			</div>
 
