@@ -253,6 +253,10 @@ module.exports = function (env) {
 			, stats: stats
 			, noInfo: true // только ошибки и варнинги
 			, proxy: { // Прокси для пересылки запросов на бек
+				'/socket.io/*': {
+					target: `http://${proxyHost}:${proxyPort}`,
+					ws: true,
+				},
 				'*': `http://${proxyHost}:${proxyPort}` //Все чего нет в src, пересылай на бек сервер
 			}
 		}
