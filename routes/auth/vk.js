@@ -31,7 +31,7 @@ router.get('/',
 
 router.get('/callback',
 	passport.authenticate('vkontakte', {
-		successRedirect: '/users',
+		successRedirect: '/auth/postauth',
 		failureRedirect: '/',
 		failureFlash: false
 	})

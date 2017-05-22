@@ -29,7 +29,7 @@ router.get('/', passport.authenticate('linkedin'));
 
 router.get('/callback', passport.authenticate('linkedin', { failureRedirect: '/' }),
     function (req, res) {
-        res.redirect('/users');
+        res.redirect('/auth/postauth');
     });
 
 

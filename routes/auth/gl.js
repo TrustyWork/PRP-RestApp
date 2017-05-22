@@ -25,7 +25,7 @@ router.get('/', passport.authenticate('google', {
 
 router.get('/callback', passport.authenticate('google', { failureRedirect: '/'}),
     function (req, res) {
-        res.redirect('/users');
+        res.redirect('/auth/postauth');
     });
 
 

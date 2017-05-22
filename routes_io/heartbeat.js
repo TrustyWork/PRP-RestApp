@@ -9,7 +9,6 @@ io.on('connection', function (socket) {
 
 	//ping responder
 	socket.on('p-i-n-g', (msg) => {
-		console.log('p-i-n-g, current rooms:',socket.rooms);
 		socket.emit('p-o-n-g', {})  // :-)
 
 	});
