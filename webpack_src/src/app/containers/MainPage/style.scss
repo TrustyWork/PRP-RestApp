@@ -1,0 +1,35 @@
+
+//Uncomment to see all div's.
+// :global {
+// 	div {
+// 		border: 1px dotted black;
+// 	}
+// }
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: stretch;
+
+	.header{
+		width:100%;
+	}
+
+	.wrapper2{
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+	}
+
+	.sidemenu {
+		flex: 0 0 auto; //Don't resize sidemenu
+		width: 256px;
+	}
+
+	.content{
+		flex: 1 1 auto;
+	}
+
+}
+

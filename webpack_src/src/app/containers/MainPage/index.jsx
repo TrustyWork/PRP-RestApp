@@ -6,6 +6,7 @@ import SideMenu from 'app/components/SideMenu';
 import OfflineNotifier from 'app/components/OfflineNotifier';
 import ImgList from 'app/components/ImgList';
 
+import style from './style.scss';
 
 
 class MainPage extends React.Component {
@@ -71,12 +72,21 @@ class MainPage extends React.Component {
 			]
 		}
 		this.socket = io(window.hostname);
-		this.socket.on('connect',this.handleOnline);
-		this.socket.on('disconnect',this.handleOffline);
+		this.socket.on('connect', this.handleOnline);
+		this.socket.on('disconnect', this.handleOffline);
 	}
 
-	handleOnline = () => {this.setState({ isOnline: true })};
-	handleOffline = () => {this.setState({ isOnline: false })};
+	handleOnline = () => { this.setState({ isOnline: true }) };
+	handleOffline = () => { this.setState({ isOnline: false }) };
+
+	handleLogout = () => {
+		fetch('/auth/logout')
+			.then((response) => {
+				if (response.ok) {
+					this.setState({ isAuthenticated: false })
+				}
+			});
+	}
 
 	checkAuth = () =>
 		fetch('/api/whoami', { credentials: 'include' })
@@ -150,23 +160,35 @@ class MainPage extends React.Component {
 	}
 
 	render() {
-		return (<div>
-			<Header
-				handleAuthFormShow={this.handleAuthFormShow}
-				handleAuthFormHide={this.handleAuthFormHide}
-				isAuthFormShown={this.state.isAuthFormShown}
-				isAuthenticated={this.state.isAuthenticated}
-				userInfo={this.state.userInfo}
-				handleAuthFormDoAuth={this.handleAuthFormDoAuth}
-				isOnline={this.state.isOnline}
-			/>
-			<SideMenu
-				sideMenu={this.state.sideMenu}
-			/>
+		return (
+		<div className={style.wrapper}>
+			<div className={style.header}>
+				<Header
+					handleAuthFormShow={this.handleAuthFormShow}
+					handleAuthFormHide={this.handleAuthFormHide}
+					isAuthFormShown={this.state.isAuthFormShown}
+					isAuthenticated={this.state.isAuthenticated}
+					userInfo={this.state.userInfo}
+					handleAuthFormDoAuth={this.handleAuthFormDoAuth}
+					isOnline={this.state.isOnline}
+					handleLogout={this.handleLogout}
+				/>
+			</div>
+
+			<div className={style.wrapper2}>
+				<div className={style.sidemenu}>
+					<SideMenu
+						sideMenu={this.state.sideMenu}
+					/>
+				</div>
+				<div className={style.content}>
+
+					<ImgList
+						tilesData={this.state.tilesData}
+					/>
+				</div>
+			</div>
 			<OfflineNotifier isOnline={this.state.isOnline} />
-			<ImgList
-				tilesData={this.state.tilesData}
-			/>
 		</div>
 		)
 	}
