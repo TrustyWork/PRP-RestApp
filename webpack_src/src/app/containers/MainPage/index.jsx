@@ -78,7 +78,7 @@ class MainPage extends React.Component {
 	handleOffline = () => { this.setState({ isOnline: false }) };
 
 	handleLogout = () => {
-		fetch('/auth/logout')
+		fetch('/auth/logout', { credentials: 'include' })
 			.then((response) => {
 				if (response.ok) {
 					this.setState({ isAuthenticated: false })
@@ -130,8 +130,8 @@ class MainPage extends React.Component {
 
 		let w = 1000;
 		let h = 600;
-		let left = (screen.width/2)-(w/2);
-		let top = (screen.height/2)-(h/2);
+		let left = (screen.width / 2) - (w / 2);
+		let top = (screen.height / 2) - (h / 2);
 		let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
 			`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
 
