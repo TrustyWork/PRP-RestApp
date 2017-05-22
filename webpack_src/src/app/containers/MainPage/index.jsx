@@ -72,12 +72,21 @@ class MainPage extends React.Component {
 			]
 		}
 		this.socket = io(window.hostname);
-		this.socket.on('connect',this.handleOnline);
-		this.socket.on('disconnect',this.handleOffline);
+		this.socket.on('connect', this.handleOnline);
+		this.socket.on('disconnect', this.handleOffline);
 	}
 
-	handleOnline = () => {this.setState({ isOnline: true })};
-	handleOffline = () => {this.setState({ isOnline: false })};
+	handleOnline = () => { this.setState({ isOnline: true }) };
+	handleOffline = () => { this.setState({ isOnline: false }) };
+
+	handleLogout = () => {
+		fetch('/auth/logout')
+			.then((response) => {
+				if (response.ok) {
+					this.setState({ isAuthenticated: false })
+				}
+			});
+	}
 
 	checkAuth = () =>
 		fetch('/api/whoami', { credentials: 'include' })
