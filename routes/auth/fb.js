@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const userModel = require('models/user');
+const userModel = require('models').user;
 const config = require('config');
 const FacebookStrategy = require('passport-facebook').Strategy;
 

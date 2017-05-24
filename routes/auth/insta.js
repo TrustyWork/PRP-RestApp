@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const userModel = require('models/user');
+const userModel = require('models').user;
 
 const passport = require('passport');
 const InstagramStrategy = require('passport-instagram');
