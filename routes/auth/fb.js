@@ -7,9 +7,10 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 
 
 passport.use(new FacebookStrategy({
-	'clientID': config.get('auth:facebookAuth:clientID'),
-	'clientSecret': config.get('auth:facebookAuth:clientSecret'),
-	'callbackURL': config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:facebookAuth:callbackURL')
+	clientID: config.get('auth:facebookAuth:clientID'),
+	clientSecret: config.get('auth:facebookAuth:clientSecret'),
+	callbackURL: config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:facebookAuth:callbackURL'),
+	profileFields: ['id', 'displayName', 'email']
 },
 	function (accessToken, refreshToken, profile, done) {
 		profile.username = profile.displayName;
@@ -20,7 +21,9 @@ passport.use(new FacebookStrategy({
 	}
 ));
 
-router.get('/', passport.authenticate('facebook'));
+router.get('/', passport.authenticate('facebook',{
+	scope: ['email']
+}));
 
 router.get('/callback', passport.authenticate('facebook', { failureRedirect: '/' }),
 	function (req, res) {
