@@ -1,5 +1,5 @@
 const io = require('wss');
-const userModel = require('models').user;
+const userModel = require('models/user');
 
 //Auto join / leave
 

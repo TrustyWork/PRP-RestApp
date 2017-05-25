@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const userModel = require('models').user;
+const AuthModel = require('models/auth');
 const config = require('config');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -14,7 +14,7 @@ passport.use(new FacebookStrategy({
 },
 	function (accessToken, refreshToken, profile, done) {
 		profile.username = profile.displayName;
-		userModel.findOrCreate(profile, (err, user) => {
+		AuthModel.findOrCreate(profile, (err, user) => {
 			if (err) { return done(err); }
 			return done(null, user);
 		});

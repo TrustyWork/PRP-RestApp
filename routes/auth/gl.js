@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const userModel = require('models').user;
+const authModel = require('models/auth');
 const config = require('config');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy({
 },
 	function (accessToken, refreshToken, profile, done) {
 		profile.username = profile.displayName;
-		userModel.findOrCreate(profile, (err, user) => {
+		authModel.findOrCreate(profile, (err, user) => {
 			if (err) { return done(err); }
 			return done(null, user);
 		});

@@ -11,7 +11,7 @@ const linkid = require('./linkid');
 const logout = require('./logout');
 const postauth = require('./postauth')
 const passport = require('passport');
-const userModel = require('models').user;
+const userModel = require('models/user');
 
 
 
@@ -32,7 +32,8 @@ router.use('/postauth',postauth);
 
 
 router.get('/', function (req, res) {
-	console.log('auth here');
+	debugger;
+
 	res.send('Auth route')
 });
 
