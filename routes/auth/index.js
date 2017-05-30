@@ -23,12 +23,12 @@ passport.deserializeUser(userModel.deserializeUser());
 router.use('/insta', insta);
 router.use('/gl', gl);
 router.use('/local', local);
-router.use('/linkid',linkid)
+router.use('/linkid', linkid)
 
 router.use('/fb', fb);
 router.use('/vk', vk);
-router.use('/logout',logout);
-router.use('/postauth',postauth);
+router.use('/logout', logout);
+router.use('/postauth', postauth);
 
 
 router.get('/', function (req, res) {

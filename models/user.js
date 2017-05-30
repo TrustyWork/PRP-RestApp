@@ -52,22 +52,20 @@ const UserSchema = {
 const User = new Schema(UserSchema);
 
 
-//(De)serialize users by email
+//user -> id
 User.statics.serializeUser = function () {
-	return  (user, cb) => {
-		cb(null, user.get('email'));
-	};
+	return (user,done) => {
+		done(null, user.get('_id'));
+	}
 };
 
+//id -> user
 User.statics.deserializeUser = function () {
-
-	let self = this;
-	return (email, cb) => {
-		const query = { email: email };
-		self.findOne(query)
-			.then((user) => cb(null, user))
-			.catch((err) => cb(err, null))
-	};
+	return (id, done) => {
+		this.findOne({ _id: id })
+			.then((user) => done(null, user))
+			.catch((err) => done(err, null));
+	}
 };
 
 module.exports = mongoose.model('User', User);
