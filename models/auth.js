@@ -27,14 +27,14 @@ const Auth = new Schema(AuthSchema);
 Auth.statics.findOrCreate = function (profile, cb) {
 
 	let query = {
-		'data.id' : profile.id,
+		'data.id': profile.id,
 		provider: profile.provider
 	}
 
 	this.findOne(query).exec()
 		.then((authData) => {
 			if (authData) {
-				return cb (null, authData);
+				return cb(null, authData);
 			} else {
 				// authData not found. Try to find user by email in users
 				// if user found, add only new autData.
@@ -52,10 +52,8 @@ Auth.statics.findOrCreate = function (profile, cb) {
 							})
 							//update user with auth ref.
 							user.auth.push(authRecord._id);
-
-							user.save()
-								.then( () => authRecord.save())
-								.then((authRecord) => cb(null, authRecord))
+							return Promise.all([user.save(), authRecord.save()])
+								.then(() => cb(null, authRecord))
 								.catch((err) => cb(err, null))
 						} else {
 							//no users, no authRecords
@@ -90,7 +88,7 @@ Auth.plugin(passportLocalMongoose, {
 
 
 //redefine passportLocalMongose schema.statics.register with my version
-Auth.statics.register = function (userData, cb) {
+Auth.statics.registerLocal = function (userData, cb) {
 
 	if (!userData.email) {
 		return cb(new Error('Yoy need email to register!'));
@@ -98,7 +96,7 @@ Auth.statics.register = function (userData, cb) {
 	//try to find authData by email.
 	let query = { email: userData.email };
 	userModel.findOne(query)
-		.then((user) => {
+		.then(user => {
 			if (user) { throw new Error(`User with ${userData.email} already exist!`) }
 			//let's build local profile
 			let profile = {
@@ -109,19 +107,18 @@ Auth.statics.register = function (userData, cb) {
 				emails: [{ value: userData.email }],
 				_json: { dumb: 'dumb' }
 			}
-			//creates new authData + user
+
 			return new Promise((res, rej) => {
 				this.findOrCreate(profile, (err, authData) => {
 					if (err) {
 						rej(new Error('Can"t create user:', err));
 					} else {
-						console.log('created authdata:', authData)
 						res(authData);
 					}
 				})
 			})
 		})
-		.then((authData) => {
+		.then(authData => {
 			return new Promise((res, rej) => {
 				authData.setPassword(userData.password, (setPasswordErr, authData) => {
 					if (setPasswordErr) {
@@ -132,9 +129,54 @@ Auth.statics.register = function (userData, cb) {
 				})
 			})
 		})
-		.then ((authData) => authData.save())
-		.then ((authData) => cb(null,authData))
+		.then(authData => authData.save())
+		.then(authData => cb(null, authData))
 		.catch(err => cb(err));
+}
+
+Auth.statics.authenticateLocal = function () {
+
+	return (email, password, cb) => {
+
+		let query = {
+			email: email
+		}
+
+		//populate only with LOCAL auth records
+		userModel.findOne(query)
+			.populate('auth', 'user hash salt', { provider: { $eq: 'local' } })
+			.exec()
+			.then(userToAuth => {
+				if (!userToAuth) {
+					throw new Error('Email not found')
+				} else if (!userToAuth.auth.length) {
+					throw new Error('Auth data for local auth is not found')
+				} else {
+					return userToAuth.auth[0]
+				}
+			})
+			.then(authData => {
+				return new Promise((res, rej) => {
+					authData.authenticate(password, (err, authData) => {
+						if (err) {
+							rej(err);
+						} else if (!authData) {
+							rej(new Error('Invalid password (local)'));
+						} else {
+							res(authData);
+						}
+					})
+				})
+			})
+			.then(verifiedAuthData => {
+				let query = { _id: verifiedAuthData.user }
+				return userModel.findOne(query).exec()
+			})
+			.then(verifiedUser => {
+				return cb(null, verifiedUser)
+			})
+			.catch(err => cb(err, false, 'error:' + err));
+	}
 }
 
 module.exports = mongoose.model('Auth', Auth);

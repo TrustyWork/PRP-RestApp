@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(
 	{
 		usernameField: 'username',
 		passwordField: 'password'
-	}, authModel.authenticate()
+	}, authModel.authenticateLocal()
 ));
 
 

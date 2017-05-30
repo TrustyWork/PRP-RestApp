@@ -9,20 +9,19 @@ router.get('/', function (req, res) {
 });
 
 router.post('/register', function (req, res, next) {
-	console.log(`\nregister new user: ${req.body.username} ${req.body.password} \n`);
-	authModel.register({
-		username: req.body.username,
-		email: req.body.email,
-		password: req.body.password
-	},
-		(err) => {
+	authModel.registerLocal(
+		{
+			username: req.body.username,
+			email: req.body.email,
+			password: req.body.password
+		},
+		err => {
 			if (err) {
-				console.log('Registration fail:', err);
 				return next(err);
+			} else {
+				res.redirect('/users');
 			}
-			res.redirect('/users');
 		});
-
 });
 
 router.get('/whoami', function (req, res, next) {
