@@ -182,7 +182,7 @@ class MainPage extends React.Component {
 				<div className={style.wrapper2}>
 					<div className={style.sidemenu}>
 						<SideMenu
-							sideMenu={this.state.sideMenu}
+
 						/>
 					</div>
 					<div className={style.content}>
