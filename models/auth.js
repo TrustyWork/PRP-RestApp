@@ -9,118 +9,102 @@ const AuthSchema = {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
 		index: { unique: false }
-	},
-
-	provider: Schema.Types.String,
-
-	data: Schema.Types.Mixed,
-
-	//not used yet. needed by passport.local.
-	username: {
-		type: Schema.Types.String,
-		index: { unique: false }
-	},
+	}
+	, provider: Schema.Types.String
+	, data: Schema.Types.Mixed
+	, token: Schema.Types.String
 }
 
 const Auth = new Schema(AuthSchema);
-
-Auth.statics.findOrCreate = function (profile, cb) {
-
-	let query = {
-		'data.id': profile.id,
-		provider: profile.provider
-	}
-
-	this.findOne(query).exec()
-		.then((authData) => {
-			if (authData) {
-				return cb(null, authData);
-			} else {
-				// authData not found. Try to find user by email in users
-				// if user found, add only new autData.
-				// if not - create User+autData records.
-				query = { email: profile.emails[0].value }
-
-				return userModel.findOne(query)
-					.then((user) => {
-						if (user) {
-							//user found. Create only new authRecord
-							let authRecord = new this({
-								user: user._id,
-								provider: profile.provider,
-								data: profile._json
-							})
-							//update user with auth ref.
-							user.auth.push(authRecord._id);
-							return Promise.all([user.save(), authRecord.save()])
-								.then(() => cb(null, authRecord))
-								.catch((err) => cb(err, null))
-						} else {
-							//no users, no authRecords
-							let user = new userModel({});
-
-							let authRecord = new this({
-								user: user._id,
-								provider: profile.provider,
-								data: profile._json
-							})
-							// fill user fields
-							user.auth = authRecord._id;
-							user.email = profile.emails[0].value;
-							user.username = profile.username
-
-							//save all
-							return Promise.all([user.save(), authRecord.save()])
-								.then(() => cb(null, authRecord))
-								.catch((err) => cb(err, null))
-						}
-					})
-			}
-		})
-		.catch((err) => cb(err, null))
-};
-
 
 Auth.plugin(passportLocalMongoose, {
 	limitAttempts: false,
 	usernameField: 'email'
 });
 
+/**
+ * Add auth Record and update ref in user
+ * @returns {Promise}
+ * @param  {UserDoc} user
+ * @param  {Object} profile
+ * @param  {String} token
+ */
+Auth.statics.addAuthRecord = function (user, profile, token) {
 
-//redefine passportLocalMongose schema.statics.register with my version
+	let authRecord = new this({
+		user: user._id
+		, provider: profile.provider
+		, data: profile._json
+		, token: token || null
+	})
+	return Promise.all([user.updateAuthRef(authRecord._id), authRecord.save()])
+		.then(savedDocs => { return { user: savedDocs[0], authRecord: savedDocs[1] } })
+}
+
+Auth.statics.findAuthRecord = function (user, provider) {
+	let query = {
+		user: user._id,
+		provider: profile.provider
+	}
+	return this.findOne(query).exec();
+}
+
+Auth.statics.findOrCreate = function (profile, token, cb) {
+
+	let query = {
+		'data.id': profile.id,
+		provider: profile.provider
+	}
+	this.findOne(query).exec()
+		.then(authData => {
+			if (authData) {
+				return userModel.findById(authData.user).exec().then(user => cb(null, { user: user, authRecord: authData }));
+			} else {
+				return userModel.findByEmail(profile.emails[0].value)
+					.then(user => {
+						if (!user) {
+							user = new userModel({
+								email: profile.emails[0].value
+								, username: profile.username
+								, auth: []
+							});
+						}
+						this.addAuthRecord(user, profile, token)
+							.then(result => cb(null, result))
+							.catch(err => cb(err, null))
+					})
+			}
+		})
+		.catch(err => cb(err, null))
+};
+
 Auth.statics.registerLocal = function (userData, cb) {
 
-	if (!userData.email) {
-		return cb(new Error('Yoy need email to register!'));
+	if (!userData.email || !userData.username) {
+		return cb(new Error('Yoy need email and username to register!'));
 	}
-	//try to find authData by email.
-	let query = { email: userData.email };
-	userModel.findOne(query)
-		.then(user => {
-			if (user) { throw new Error(`User with ${userData.email} already exist!`) }
-			//let's build local profile
-			let profile = {
-				id: userData.email,
-				provider: 'local',
-				username: userData.username,
-				displayName: userData.username,
-				emails: [{ value: userData.email }],
-				_json: { dumb: 'dumb' }
-			}
 
-			return new Promise((res, rej) => {
-				this.findOrCreate(profile, (err, authData) => {
-					if (err) {
-						rej(new Error('Can"t create user:', err));
-					} else {
-						res(authData);
-					}
-				})
-			})
+	let profile = {
+		id: userData.email,
+		provider: 'local',
+		username: userData.username,
+		displayName: userData.username,
+		emails: [{ value: userData.email }],
+		_json: { dumb: 'dumb' }
+	}
+
+	return new Promise((res, rej) => {
+		this.findOrCreate(profile, null, (err, { authRecord }) => { // get only authRecord
+			if (err) {
+				rej(new Error('Can"t create user:', err));
+			} else {
+				res(authRecord);
+			}
 		})
-		.then(authData => {
+	})
+		.then(authRecord => {
 			return new Promise((res, rej) => {
-				authData.setPassword(userData.password, (setPasswordErr, authData) => {
+				authRecord.setPassword(userData.password, (setPasswordErr, authData) => {
 					if (setPasswordErr) {
 						rej(new Error(setPasswordErr));
 					} else {
@@ -141,7 +125,6 @@ Auth.statics.authenticateLocal = function () {
 		let query = {
 			email: email
 		}
-
 		//populate only with LOCAL auth records
 		userModel.findOne(query)
 			.populate('auth', 'user hash salt', { provider: { $eq: 'local' } })

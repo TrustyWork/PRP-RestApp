@@ -54,7 +54,7 @@ const User = new Schema(UserSchema);
 
 //user -> id
 User.statics.serializeUser = function () {
-	return (user,done) => {
+	return (user, done) => {
 		done(null, user.get('_id'));
 	}
 };
@@ -68,4 +68,15 @@ User.statics.deserializeUser = function () {
 	}
 };
 
+User.methods.updateAuthRef = function (ref) {
+	this.auth.push(ref);
+	return this.save();
+}
+
+/**
+ * @return {Promise}
+ */
+User.statics.findByEmail = function (email) {
+	return this.findOne({ email: email }).exec();
+}
 module.exports = mongoose.model('User', User);

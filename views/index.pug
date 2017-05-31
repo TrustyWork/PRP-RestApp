@@ -6,9 +6,11 @@ block content
 	br
 	a(href='/auth/logout') Logout...
 	form(action = "/auth/local" method="post")
-		input(type ='text' name='username')
-		input(type ='text' name='password')
-		input(type="submit" value="Login" )
+		label email
+			input(type ='text' name='username')
+		label password
+			input(type ='text' name='password')
+		input(type="submit" value="Local Login" )
 	br
 	form(action = "/api/register" method="post")
 		label username
@@ -17,7 +19,7 @@ block content
 			input(type ='text' name='email')
 		label password
 			input(type ='text' name='password')
-		input(type="submit" value="Create New User" )
+		input(type="submit" value="Create New Local User" )
 	br
 	a(href="/auth/insta") auth with Instagram
 	br
@@ -25,6 +27,6 @@ block content
 	br
 	a(href="/auth/linkid") auth with Linkedin
 	br
-	a(href="/auth/fb") Login with Facebook
+	a(href="/auth/fb") auth with Facebook
 	br
 	a(href="/auth/vk") auth with VK

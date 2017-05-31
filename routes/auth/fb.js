@@ -15,24 +15,15 @@ passport.use(new FacebookStrategy({
 },
 	function (accessToken, refreshToken, profile, done) {
 		profile.username = profile.displayName;
-		authModel.findOrCreate(profile, (err, authRecord) => {
-			return (
-				userModel.findOne({ _id: authRecord.user })
-					.then(user => done(null, user))
-					.catch(err => done(err, null))
-			)
+		profile.token = accessToken;
+		authModel.findOrCreate(profile, accessToken, (err, {user}) => { //only user needed here
+			if (err) { return done(err, null) }
+			return done(null, user);
 		});
 	}
-	// function (accessToken, refreshToken, profile, done) {
-	// 	profile.username = profile.displayName;
-	// 	AuthModel.findOrCreate(profile, (err, user) => {
-	// 		if (err) { return done(err); }
-	// 		return done(null, user);
-	// 	});
-	// }
 ));
 
-router.get('/', passport.authenticate('facebook',{
+router.get('/', passport.authenticate('facebook', {
 	scope: ['email']
 }));
 
