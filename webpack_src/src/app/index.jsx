@@ -13,7 +13,7 @@ import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-// console.log(store.getState());
+console.log('Store:', store.getState());
 
 //setInterval(() => { store.dispatch({ type: 'ADD_SIDEMENU_ENTRY', data: '' }) }, 5000);
 

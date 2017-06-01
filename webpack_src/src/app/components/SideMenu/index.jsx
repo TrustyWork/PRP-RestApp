@@ -3,8 +3,8 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 
-import { bindActionCreators} from 'redux';
-import { connect, } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as actionCreators from 'app/actions/sidemenu';
 
 import style from './style.scss';
