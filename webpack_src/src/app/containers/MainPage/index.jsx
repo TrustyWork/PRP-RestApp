@@ -4,7 +4,7 @@ import Header from 'app/components/Header';
 import SideMenu from 'app/components/SideMenu';
 import OfflineNotifier from 'app/components/OfflineNotifier';
 import ImgList from 'app/components/ImgList';
-import socket from 'app/util/websockets'
+
 import style from './style.scss';
 
 
@@ -19,59 +19,9 @@ class MainPage extends React.Component {
 
 			//app state
 			isAuthFormShown: false,
-			isOnline: true,
-			// tilesData: [
-			// 	{
-			// 		img: 'http://placehold.it/350x350',
-			// 		title: 'Breakfast',
-			// 		author: 'jill111',
-			// 	},
-			// 	{
-			// 		img: 'http://placehold.it/350x350',
-			// 		title: 'Tasty burger',
-			// 		author: 'pashminu',
-			// 	},
-			// 	{
-			// 		img: 'http://placehold.it/350x350',
-			// 		title: 'Camera',
-			// 		author: 'Danson67',
-			// 	},
-			// 	{
-			// 		img: 'http://placehold.it/350x350',
-			// 		title: 'Morning',
-			// 		author: 'fancycrave1',
-			// 	},
-			// 	{
-			// 		img: 'http://placehold.it/350x350',
-			// 		title: 'Hats',
-			// 		author: 'Hans',
-			// 	}
-			// ],
-			// sideMenu: [
-			// 	{
-			// 		item: 'Popular',
-			// 		icon: 'fa fa-fire'
-
-			// 	},
-			// 	{
-			// 		item: 'Favorites',
-			// 		icon: 'fa fa-heart'
-
-			// 	},
-			// 	{
-			// 		item: 'Promotional',
-			// 		icon: 'fa fa-birthday-cake'
-
-			// 	},
-			// 	{
-			// 		item: 'Hot',
-			// 		icon: 'fa fa-exclamation-circle'
-
-			// 	},
-			// ]
+			// isOnline: true,
 		}
-		socket.on('connect', this.handleOnline);
-		socket.on('disconnect', this.handleOffline);
+
 	}
 
 	handleOnline = () => { this.setState({ isOnline: true }) };
@@ -192,7 +142,7 @@ class MainPage extends React.Component {
 						/>
 					</div>
 				</div>
-				<OfflineNotifier isOnline={this.state.isOnline} />
+				<OfflineNotifier />
 			</div>
 		)
 	}

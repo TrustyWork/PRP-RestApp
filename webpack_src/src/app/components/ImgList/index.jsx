@@ -30,10 +30,10 @@ const ImgList = (props) => {
 	return (
 		<div className={style.custom}>
 			<div style={styles.root}>
-				<GridList style={styles.gridList} cols={2.2}>
-					{props.tilesData.map((tile, idx) => (
+				<GridList  style={styles.gridList} cols={2.2}>
+					{props.tilesData.map((tile) => (
 						<GridTile
-							key={idx}
+							key={tile.idx}
 							title={<div>text</div>}
 							titleStyle={styles.titleStyle}
 							titleBackground="rgba(0,0,0,0.4)"
