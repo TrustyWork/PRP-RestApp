@@ -21,9 +21,9 @@ const reducer = (state = initialState, action) => {
 	let _state = state.map((itm) => Object.assign({}, itm))
 	switch (action.type) {
 		case 'ADD_SIDEMENU_ENTRY':
-			_state.push(action.data);
+			_state.push(action.payload);
 			break;
-		case 'REMOVE_SIDEMENU_ENTRY': console.log('ADD_ENTRY:', action.data);
+		case 'REMOVE_SIDEMENU_ENTRY': console.log('ADD_ENTRY:', action.payload);
 			break;
 		default:
 			return state;

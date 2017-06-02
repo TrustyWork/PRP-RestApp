@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
 	let _state = state.map((itm) => { return { ...itm } }) //
 	switch (action.type) {
 		case 'REPLACE_PIC_BY_IDX':
-			_state[action.data.idx].img = action.data.url;
+			_state[action.payload.idx].img = action.payload.url;
 			break;
 		default:
 			return state;

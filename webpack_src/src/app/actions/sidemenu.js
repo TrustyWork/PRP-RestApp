@@ -1,18 +1,8 @@
 
-export const addSideMenuEntry = (txt) =>{
+export const addSideMenuEntry = (itm) =>{
 
 	return {
 		type: 'ADD_SIDEMENU_ENTRY',
-		data: txt
+		payload: itm
 	}
 }
-
-export const SideMenuEntry = () =>{
-
-	return {
-		type: 'ADD_SIDEMENU_ENTRY',
-		data: {}
-	}
-}
-
-export default { addSideMenuEntry, SideMenuEntry }

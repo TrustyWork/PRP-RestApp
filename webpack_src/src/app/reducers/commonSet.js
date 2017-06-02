@@ -6,7 +6,7 @@ export default (initialState = null) => {
 
 		switch (acttion.type) {
 			case 'SET':
-				_state = Object.assign(_state, action.data);
+				_state = Object.assign(_state, action.payload);
 				break;
 			default:
 				return state;
