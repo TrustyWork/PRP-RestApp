@@ -51,7 +51,7 @@ const ImgList = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		tilesData: state.mainpage.content.tilesData
+		tilesData: state.mainpage.content.imglist
 	}
 }
 

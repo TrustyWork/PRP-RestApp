@@ -16,7 +16,7 @@ const SideMenu = (props) => {
 		<Drawer containerClassName={style.drawer}>
 			{props.sideMenu.map((itm) => {
 				return (
-					<MenuItem key={itm.item} onTouchTap={props.actions.addSideMenuEntry} leftIcon={<FontIcon className={itm.icon} />}>{itm.item}</MenuItem>
+					<MenuItem key={itm.item} onTouchTap={ () => props.actions.addSideMenuEntry({ item: 'NewMenu' + Date.now(), icon: 'fa fa-exclamation-circle' }) } leftIcon={<FontIcon className={itm.icon} />}>{itm.item}</MenuItem>
 				)
 			})}
 		</Drawer>

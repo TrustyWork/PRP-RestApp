@@ -1,9 +1,9 @@
 
-export const addSideMenuEntry = () =>{
+export const addSideMenuEntry = (txt) =>{
 
 	return {
 		type: 'ADD_SIDEMENU_ENTRY',
-		data: {}
+		data: txt
 	}
 }
 

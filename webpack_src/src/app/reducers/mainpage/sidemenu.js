@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
 	let _state = state.map((itm) => Object.assign({}, itm))
 	switch (action.type) {
 		case 'ADD_SIDEMENU_ENTRY':
-			_state.push({ item: 'NewMenu' + Date.now(), icon: 'fa fa-exclamation-circle' });
+			_state.push(action.data);
 			break;
 		case 'REMOVE_SIDEMENU_ENTRY': console.log('ADD_ENTRY:', action.data);
 			break;
