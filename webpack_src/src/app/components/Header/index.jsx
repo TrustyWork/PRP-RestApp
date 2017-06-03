@@ -18,7 +18,7 @@ const Header = ({ isAuthenticated, isOnline, handleLogout, ...props }) => {
 						onTouchTap={handleLogout}
 					/>
 					:
-					<AuthForm {...props} />
+					<AuthForm  />
 			}
 		>
 		</AppBar>

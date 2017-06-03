@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
-import loginForm from './loginform';
+import authForm from './authForm';
 
 export default combineReducers({
-	loginForm
+	authForm
 });

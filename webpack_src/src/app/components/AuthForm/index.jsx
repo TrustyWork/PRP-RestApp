@@ -4,16 +4,16 @@ import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
-
+import { connect } from 'react-redux';
 import style from './style.scss'
 
 const socialBtnStyle = {
 	border: "1px solid rgba(100,100,100,0.5)",
 	textAlign: "left"
 };
-
-const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, handleAuthFormDoAuth, ...props }) => {
-	console.log('props in AuthForm', props);
+const isAuthFormShown="", handleAuthFormHide="", handleAuthFormShow="", handleAuthFormDoAuth="";
+//{ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, handleAuthFormDoAuth, ...props }
+const AuthForm = (props) => {
 	return (
 		<div>
 			<MenuItem primaryText="Login..." onTouchTap={handleAuthFormShow} />
@@ -21,7 +21,7 @@ const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, han
 				title="Create new account"
 				titleClassName={style.title}
 				modal={false}
-				open={isAuthFormShown}
+				open={props.isShown} //
 				onRequestClose={handleAuthFormHide}
 				bodyClassName={style.body}
 			>
@@ -90,4 +90,8 @@ const AuthForm = ({ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, han
 	)
 }
 
-export default AuthForm;
+const mapStateToProps = (state) => {
+	return state.dialogs.authForm
+}
+
+export default connect(mapStateToProps)(AuthForm);
