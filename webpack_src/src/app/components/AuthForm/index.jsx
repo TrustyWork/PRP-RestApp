@@ -23,7 +23,7 @@ const AuthForm = (props) => {
 				title="Create new account"
 				titleClassName={style.title}
 				modal={false}
-				open={props.isShown} //
+				open={props.isShown}
 				onRequestClose={props.actions.authFormHide}
 				bodyClassName={style.body}
 			>
@@ -70,14 +70,17 @@ const AuthForm = (props) => {
 					<TextField
 						hintText="Name"
 						fullWidth={true}
+						onChange={(ev) => { props.actions.authFormFieldsChanged({ username: ev.target.value }) }}
 					/>
 					<TextField
 						hintText="Email"
 						fullWidth={true}
+						onChange={(ev) => { props.actions.authFormFieldsChanged({ email: ev.target.value }) }}
 					/>
 					<TextField
 						hintText="Password"
 						fullWidth={true}
+						onChange={(ev) => { props.actions.authFormFieldsChanged({ password: ev.target.value }) }}
 					/>
 					<FlatButton
 						fullWidth={true}
@@ -99,4 +102,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return { actions: bindActionCreators(authActions, dispatch) }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
