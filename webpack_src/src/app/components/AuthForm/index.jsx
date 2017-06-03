@@ -5,24 +5,26 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import style from './style.scss'
+import * as authActions from 'app/actions/auth'
 
 const socialBtnStyle = {
 	border: "1px solid rgba(100,100,100,0.5)",
 	textAlign: "left"
 };
-const isAuthFormShown="", handleAuthFormHide="", handleAuthFormShow="", handleAuthFormDoAuth="";
+const isAuthFormShown = "", handleAuthFormHide = "", handleAuthFormShow = "", handleAuthFormDoAuth = "";
 //{ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, handleAuthFormDoAuth, ...props }
 const AuthForm = (props) => {
 	return (
 		<div>
-			<MenuItem primaryText="Login..." onTouchTap={handleAuthFormShow} />
+			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow} />
 			<Dialog
 				title="Create new account"
 				titleClassName={style.title}
 				modal={false}
 				open={props.isShown} //
-				onRequestClose={handleAuthFormHide}
+				onRequestClose={props.actions.authFormHide}
 				bodyClassName={style.body}
 			>
 				<div className={style.maincolumn}>
@@ -94,4 +96,7 @@ const mapStateToProps = (state) => {
 	return state.dialogs.authForm
 }
 
-export default connect(mapStateToProps)(AuthForm);
+const mapDispatchToProps = (dispatch) => {
+	return { actions: bindActionCreators(authActions, dispatch) }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(AuthForm);
