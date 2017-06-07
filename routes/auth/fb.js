@@ -1,26 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const authModel = require('models/auth');
 const userModel = require('models/user');
 const config = require('config');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
 
 passport.use(new FacebookStrategy({
-	'clientID': config.get('auth:facebookAuth:clientID'),
-	'clientSecret': config.get('auth:facebookAuth:clientSecret'),
-	'callbackURL': config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:facebookAuth:callbackURL')
+	clientID: config.get('auth:facebookAuth:clientID'),
+	clientSecret: config.get('auth:facebookAuth:clientSecret'),
+	callbackURL: config.get('rootURL') + ':' + config.get('callbackPort') + config.get('auth:facebookAuth:callbackURL'),
+	profileFields: ['id', 'displayName', 'email']
 },
 	function (accessToken, refreshToken, profile, done) {
 		profile.username = profile.displayName;
-		userModel.findOrCreate(profile, (err, user) => {
-			if (err) { return done(err); }
+		profile.token = accessToken;
+		authModel.findOrCreate(profile, accessToken, (err, {user}) => { //only user needed here
+			if (err) { return done(err, null) }
 			return done(null, user);
 		});
 	}
 ));
 
-router.get('/', passport.authenticate('facebook'));
+router.get('/', passport.authenticate('facebook', {
+	scope: ['email']
+}));
 
 router.get('/callback', passport.authenticate('facebook', { failureRedirect: '/' }),
 	function (req, res) {

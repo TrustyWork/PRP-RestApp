@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
-const UserSchema = {
 
+
+const UserSchema = {
 	// _id will be created by Mongo
+
+	username: {
+		type: Schema.Types.String
+	},
 
 	role: {
 		stuff: [{
@@ -16,28 +20,31 @@ const UserSchema = {
 		}]
 	},
 
-	auth: {
-		instagram: Schema.Types.Mixed,
-		facebook: Schema.Types.Mixed,
-		google: Schema.Types.Mixed,
-		vkontakte: Schema.Types.Mixed
-		// fb: Schema.Types.Mixed,
-		// gl: Schema.Types.Mixed
+	auth: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Auth'
+	}],
+
+	email: {
+		type: Schema.Types.String
 	},
 
 	birthday: {
-		type: Date
+		type: Schema.Types.Date
 	},
 
 	gender: {
-		type: String
+		type: Schema.Types.String
 	},
 
 	createTime: {
-		type: Date, default: Date.now
+		type: Schema.Types.Date,
+		default: Date.now
 	},
+
 	modifyTime: {
-		type: Date, default: Date.now
+		type: Schema.Types.Date,
+		default: Date.now
 	},
 
 }
@@ -45,36 +52,31 @@ const UserSchema = {
 const User = new Schema(UserSchema);
 
 
-User.statics.findOrCreate = function (profile, cb) {
-
-	let prop = `auth.${profile.provider}.id`
-	let query = { [prop]: profile.id };
-
-	this.findOne(query, (err, user) => {
-		if (err) {
-			return cb(err)
-		}
-
-		if (!user) {
-			user = new this({ username: profile.username });
-			user.auth[profile.provider] = profile;
-			user.save(function (err) {
-				if (err) {
-					return cb(err);
-				}
-				return cb(null, user);
-			})
-		}
-		else {
-			return cb(null, user);
-		}
-	})
+//user -> id
+User.statics.serializeUser = function () {
+	return (user, done) => {
+		done(null, user.get('_id'));
+	}
 };
 
+//id -> user
+User.statics.deserializeUser = function () {
+	return (id, done) => {
+		this.findOne({ _id: id })
+			.then((user) => done(null, user))
+			.catch((err) => done(err, null));
+	}
+};
 
+User.methods.updateAuthRef = function (ref) {
+	this.auth.push(ref);
+	return this.save();
+}
 
-User.plugin(passportLocalMongoose, {
-	limitAttempts: false,
-});
-
+/**
+ * @return {Promise}
+ */
+User.statics.findByEmail = function (email) {
+	return this.findOne({ email: email }).exec();
+}
 module.exports = mongoose.model('User', User);

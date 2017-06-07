@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.get('db:uri'));
+mongoose.connect(config.get('db:uri'),{ config: { autoIndex: false } });
 
 const db = mongoose.connection;
 
