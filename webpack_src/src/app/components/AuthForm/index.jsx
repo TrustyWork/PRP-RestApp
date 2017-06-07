@@ -1,3 +1,4 @@
+import socket from 'app/util/websockets';
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 
@@ -15,10 +16,29 @@ import Form from './form';
 
 //submit handler
 const submit = (values,dispatch,props) => {
-	return new Promise ((res, rej) => {
-		console.log('Submited params:',values,dispatch,props);
-		setTimeout(() => {res()},60000);
-	 })
+
+
+
+	const myHeaders = new Headers();
+
+	myHeaders.append('Content-Type', 'application/json');
+
+	const requestOptions = {
+		credentials: 'include',
+		method: 'POST',
+		headers: myHeaders,
+		body: JSON.stringify(values)
+	}
+
+	return fetch('/auth/local', requestOptions)
+	.then( (res) => {console.log(res)});
+
+	//socket.emit('/api/user/',{ method: 'POST', authData: values});
+
+	// return new Promise ((res, rej) => {
+	// 	console.log('Submited params:',values,dispatch,props);
+	// 	setTimeout(() => {res()},60000);
+	//  })
 }
 
 // const handleAuthFormDoAuth = (provider) => {

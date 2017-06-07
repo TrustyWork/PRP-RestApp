@@ -121,7 +121,7 @@ Auth.statics.registerLocal = function (userData, cb) {
 Auth.statics.authenticateLocal = function () {
 
 	return (email, password, cb) => {
-
+		console.log('local Auth:',email,password);
 		let query = {
 			email: email
 		}

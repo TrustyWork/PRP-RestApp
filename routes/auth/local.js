@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
 	{
-		usernameField: 'username',
+		usernameField: 'email',
 		passwordField: 'password'
 	}, authModel.authenticateLocal()
 ));
