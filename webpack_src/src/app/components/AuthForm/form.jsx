@@ -20,6 +20,26 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 	/>
 )
 
+const validate = (values) => {
+
+	const errors = {}
+
+	if (!values.username) {
+		errors.username = 'username is required!'
+	}
+	if (!values.email) {
+		errors.email = 'email is required!'
+
+	} else if ( !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(values.email)) {
+		errors.email = 'incorrect format!'
+	}
+
+	if (!values.password) {
+		errors.password = 'password is required!'
+	}
+	return errors;
+}
+
 let Form = (props) => {
 	const {handleSubmit} = props;
 	return (
@@ -66,7 +86,7 @@ let Form = (props) => {
 			<div className={style.maincolumn}>
 
 				<Field
-					name="firstName"
+					name="username"
 					component={renderTextField}
 					hintText="Name"
 				/>
@@ -95,5 +115,8 @@ let Form = (props) => {
 }
 
 
-Form = reduxForm({ form: 'authForm' })(Form)
+Form = reduxForm({
+	form: 'authForm',
+	validate
+})(Form)
 export default Form;
