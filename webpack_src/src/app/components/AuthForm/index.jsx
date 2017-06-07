@@ -13,7 +13,42 @@ const socialBtnStyle = {
 	border: "1px solid rgba(100,100,100,0.5)",
 	textAlign: "left"
 };
-const isAuthFormShown = "", handleAuthFormHide = "", handleAuthFormShow = "", handleAuthFormDoAuth = "";
+
+const handleAuthFormDoAuth = (provider) => {
+
+		const mapperURL = {
+			fb: '/auth/fb',
+			gl: '/auth/gl',
+			insta: '/auth/insta',
+			vk: '/auth/vk',
+			in: '/auth/linkid'
+		}
+
+		const w = 1000;
+		const h = 600;
+		const left = (screen.width / 2) - (w / 2);
+		const top = (screen.height / 2) - (h / 2);
+		let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
+			`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
+		authWin.onbeforeunload = () => {console.log('onbeforeunload')};
+		authWin.onunload = () => {console.log('onunload')};
+		authWin.onclose = () => {console.log('onclose')};
+
+
+		let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
+
+		// rearm event handler
+		socket.off('user_auth_ok');
+		socket.once('user_auth_ok', () => {
+			clearTimeout(authTimeoutTimer);
+			if (!authWin.closed) { authWin.close(); }
+			this.processLogin();
+		})
+
+	}
+
+
+//const isAuthFormShown = "", handleAuthFormHide = "", handleAuthFormShow = "", handleAuthFormDoAuth = "";
 //{ isAuthFormShown, handleAuthFormHide, handleAuthFormShow, handleAuthFormDoAuth, ...props }
 const AuthForm = (props) => {
 	return (

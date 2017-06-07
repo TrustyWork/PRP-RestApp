@@ -24,8 +24,8 @@ class MainPage extends React.Component {
 
 	}
 
-	handleOnline = () => { this.setState({ isOnline: true }) };
-	handleOffline = () => { this.setState({ isOnline: false }) };
+	// handleOnline = () => { this.setState({ isOnline: true }) };
+	// handleOffline = () => { this.setState({ isOnline: false }) };
 
 	handleLogout = () => {
 		fetch('/auth/logout', { credentials: 'include' })
@@ -60,42 +60,42 @@ class MainPage extends React.Component {
 	}
 
 	//Handlers for authForm
-	handleAuthFormShow = () => {
-		this.setState({ isAuthFormShown: true })
-	}
+	// handleAuthFormShow = () => {
+	// 	this.setState({ isAuthFormShown: true })
+	// }
 
-	handleAuthFormHide = () => {
-		this.setState({ isAuthFormShown: false })
-	}
+	// handleAuthFormHide = () => {
+	// 	this.setState({ isAuthFormShown: false })
+	// }
 
-	handleAuthFormDoAuth = (provider) => {
+	// handleAuthFormDoAuth = (provider) => {
 
-		const mapperURL = {
-			fb: '/auth/fb',
-			gl: '/auth/gl',
-			insta: '/auth/insta',
-			vk: '/auth/vk',
-			in: '/auth/linkid'
-		}
+	// 	const mapperURL = {
+	// 		fb: '/auth/fb',
+	// 		gl: '/auth/gl',
+	// 		insta: '/auth/insta',
+	// 		vk: '/auth/vk',
+	// 		in: '/auth/linkid'
+	// 	}
 
-		let w = 1000;
-		let h = 600;
-		let left = (screen.width / 2) - (w / 2);
-		let top = (screen.height / 2) - (h / 2);
-		let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
-			`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
+	// 	let w = 1000;
+	// 	let h = 600;
+	// 	let left = (screen.width / 2) - (w / 2);
+	// 	let top = (screen.height / 2) - (h / 2);
+	// 	let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
+	// 		`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
 
-		let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
+	// 	let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
 
-		// rearm event handler
-		socket.off('user_auth_ok');
-		socket.once('user_auth_ok', () => {
-			clearTimeout(authTimeoutTimer);
-			if (!authWin.closed) { authWin.close(); }
-			this.processLogin();
-		})
+	// 	// rearm event handler
+	// 	socket.off('user_auth_ok');
+	// 	socket.once('user_auth_ok', () => {
+	// 		clearTimeout(authTimeoutTimer);
+	// 		if (!authWin.closed) { authWin.close(); }
+	// 		this.processLogin();
+	// 	})
 
-	}
+	// }
 
 	componentDidMount() {
 		this.checkAuth()
