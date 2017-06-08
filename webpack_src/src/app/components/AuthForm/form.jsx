@@ -2,6 +2,7 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/CircularProgress';
 import style from './style.scss';
 import { reduxForm, Field } from 'redux-form';
 
@@ -41,7 +42,7 @@ const validate = (values) => {
 }
 
 let Form = (props) => {
-	const { handleSubmit, handleExternalAuth, dispatch } = props;
+	const { handleSubmit, handleExternalAuth, dispatch, submitting } = props;
 
 	return (
 		<form className={style.body}>
@@ -111,6 +112,10 @@ let Form = (props) => {
 					onTouchTap={handleSubmit}
 				/>
 			</div>
+			{/*Auth progres...*/}
+			{submitting && <div className ={style.darken}>
+				<CircularProgress size={100} thickness={10} />
+			</div>}
 		</form>
 	)
 }
