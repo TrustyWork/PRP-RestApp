@@ -121,7 +121,7 @@ Auth.statics.registerLocal = function (userData, cb) {
 Auth.statics.authenticateLocal = function () {
 
 	return (email, password, cb) => {
-		console.log('local Auth:', email, password);
+
 		let query = {
 			email: email
 		}
@@ -158,7 +158,17 @@ Auth.statics.authenticateLocal = function () {
 			.then(verifiedUser => {
 				return cb(null, verifiedUser)
 			})
-			.catch(err => cb(err, false, 'error:' + err));
+			.catch(err => {
+				switch (err.message) {
+					case 'Email not found':
+					case 'Auth data for local auth is not found':
+					case 'Invalid password (local)':
+						cb(null, false, { message: 'local user or local authData not found or invalid password' });
+						break;
+					default:
+						cb(err, false, 'error:' + err)
+				}
+			});
 	}
 }
 

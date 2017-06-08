@@ -18,10 +18,15 @@ passport.use(new LocalStrategy(
 
 //local auth handler
 router.post('/',
-		passport.authenticate('local', {
-		successRedirect: '/auth/postauth',
-		failureRedirect: '/',
-		failureFlash: false
-	}));
+		passport.authenticate('local'
+	// 	, {
+	// 	successRedirect: '/auth/postauth',
+	// 	failureRedirect: '/',
+	// 	failureFlash: false
+	// }
+	),
+	(req,res) => {
+		res.send(JSON.stringify(req.user));
+	} );
 
 module.exports = router;
