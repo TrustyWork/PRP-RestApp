@@ -17,16 +17,21 @@ passport.use(new LocalStrategy(
 
 
 //local auth handler
-router.post('/',
-		passport.authenticate('local'
-	// 	, {
-	// 	successRedirect: '/auth/postauth',
-	// 	failureRedirect: '/',
-	// 	failureFlash: false
-	// }
-	),
-	(req,res) => {
-		res.send(JSON.stringify(req.user));
-	} );
+//using custom middleware to avoid 401 error.
+router.post('/', (req, res, next) => {
+	passport.authenticate('local', function (err, user, info) {
+
+		if (err) { return next(err); }
+
+		// auth fail
+		if (!user) { return res.send(JSON.stringify({ error: info })) }
+
+		//auth success
+		req.logIn(user, function (err) {
+			if (err) { return next(err); }
+			return res.send(JSON.stringify({ error: null, user: user }))
+		});
+	})(req, res, next);
+})
 
 module.exports = router;

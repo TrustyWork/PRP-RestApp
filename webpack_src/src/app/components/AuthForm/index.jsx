@@ -28,8 +28,7 @@ const doLocalAuth = (values,dispatch,props) => {
 	}
 
 	return fetch('/auth/local', requestOptions)
-	.then(res.json)
-	.then(json => {});
+	.then((res) => res.json())
 }
 
 // const processLogin = () => {
