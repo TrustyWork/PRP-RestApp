@@ -30,7 +30,7 @@ const validate = (values) => {
 	if (!values.email) {
 		errors.email = 'email is required!'
 
-	} else if ( !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(values.email)) {
+	} else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(values.email)) {
 		errors.email = 'incorrect format!'
 	}
 
@@ -41,7 +41,8 @@ const validate = (values) => {
 }
 
 let Form = (props) => {
-	const {handleSubmit} = props;
+	const { handleSubmit, handleExternalAuth, dispatch } = props;
+
 	return (
 		<form className={style.body}>
 			<div className={style.maincolumn}>
@@ -52,7 +53,7 @@ let Form = (props) => {
 					label="Connect with Facebook"
 					icon={<FontIcon className={"fa fa-facebook-official"} />}
 					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleAuthFormDoAuth('fb')}
+					onTouchTap={() => handleExternalAuth('fb',dispatch)}
 				/>
 				<FlatButton
 					fullWidth={true}
@@ -61,7 +62,7 @@ let Form = (props) => {
 					label="Connect with Google"
 					icon={<FontIcon className={"fa fa-google"} />}
 					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleAuthFormDoAuth('gl')}
+					onTouchTap={() => handleExternalAuth('gl',dispatch)}
 				/>
 				<FlatButton
 					fullWidth={true}
@@ -70,7 +71,7 @@ let Form = (props) => {
 					label="Connect with Linkedin"
 					icon={<FontIcon className={"fa fa-linkedin-square"} />}
 					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleAuthFormDoAuth('in')}
+					onTouchTap={() => handleExternalAuth('in',dispatch)}
 				/>
 				<FlatButton
 					fullWidth={true}
@@ -79,7 +80,7 @@ let Form = (props) => {
 					label="Connect with Instagram"
 					icon={<FontIcon className={"fa fa-instagram"} />}
 					style={{ ...socialBtnStyle, color: "#000000", }}
-					onTouchTap={() => handleAuthFormDoAuth('insta')}
+					onTouchTap={() => handleExternalAuth('insta',dispatch)}
 				/>
 			</div>
 			<div className={style.middlecolumn}> <div className={style.middlecolumntext} >or</div> </div>

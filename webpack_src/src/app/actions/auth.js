@@ -9,10 +9,3 @@ export const authFormHide = () => {
 		type: 'LOGIN_FORM_HIDE'
 	}
 }
-
-export const authFormFieldsChanged = (payload) => {
-	return {
-		type: 'LOGIN_FORM_FIELDS_CHANGED',
-		payload: payload
-	}
-}

@@ -23,11 +23,11 @@ Auth.plugin(passportLocalMongoose, {
 });
 
 /**
- * Add auth Record and update ref in user
+ * Add auth Record and update ref in user.
  * @returns {Promise}
- * @param  {UserDoc} user
- * @param  {Object} profile
- * @param  {String} token
+ * @param {UserDoc} user
+ * @param {Object} profile
+ * @param {String} token
  */
 Auth.statics.addAuthRecord = function (user, profile, token) {
 
@@ -121,7 +121,7 @@ Auth.statics.registerLocal = function (userData, cb) {
 Auth.statics.authenticateLocal = function () {
 
 	return (email, password, cb) => {
-		console.log('local Auth:',email,password);
+		console.log('local Auth:', email, password);
 		let query = {
 			email: email
 		}
