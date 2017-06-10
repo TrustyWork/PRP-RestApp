@@ -1,33 +1,46 @@
 const io = require('wss');
 const app = require('app');
 
+let sessions = {}
 
+const emitBySession = (sid, path, data) => {
+	return new Promise((res, rej) => {
+		if (!sessions[sid]) {
+			return rej();
+		}
 
+		for (socket of sessions[sid]) {
+			socket.emit(path, data);
+		}
+
+		res();
+	})
+}
+
+app.addListener('user_auth_ok', (data) => {
+	emitBySession(data.sesID, '/auth/login', {});
+});
 
 io.on('connection', function (socket) {
 
-	const handleUserLogin = (data) => {
-		console.log('handlelogin:', data);
-		if (data.sessID == socket.handshake.session.id) {
-			console.log('it"s our login event. reporting to APP',data.sessID,socket.handshake.session.id);
-			//
-		} else {
-			console.log('ignoring...')
+	if (socket.handshake.session && socket.handshake.session.id) {
+		let sid = socket.handshake.session.id;
+		if (!sessions[sid]) {
+			sessions[sid] = [];
 		}
-	}
-	console.log('connect fired');
-	//app.on('user_logout', (data) => { socket.emit('user_logout', data) });
-	app.addListener('user_auth_ok', handleUserLogin);
 
-	socket.on('/api/user/', (payload) => {
-		switch (payload.method) {
-			case 'POST':
-				console.log('trying to auth with:', payload.authData);
-				setTimeout(() => { socket.emit('/api/user', { result: true }) }, 5000)
-				break;
-			default:
-		}
-	})
+		sessions[sid].push(socket);
+	}
+
+	// socket.on('/api/user/', (payload) => {
+	// 	switch (payload.method) {
+	// 		case 'POST':
+	// 			console.log('trying to auth with:', payload.authData);
+	// 			setTimeout(() => { socket.emit('/api/user', { result: true }) }, 5000)
+	// 			break;
+	// 		default:
+	// 	}
+	// })
 
 	// cleanup....
 	socket.on('disconnect', () => { app.removeListener('user_auth_ok', handleUserLogin) })
