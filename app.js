@@ -5,14 +5,9 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('session');
-
 const sessionMW = require('storage').sessionMW;
-
 const config = require('config');
-
-
 const passport = require('passport');
-
 
 const app = express();
 
@@ -48,19 +43,8 @@ app.once('restapp_wssready', () => {
 	app.use('/api', require('routes/api'));
 	app.use('/auth', require('routes/auth'));
 
-
-	// check auth middleware
-	const checkAuth = function (req, res, next) {
-		if (req.user) {
-			next()
-		}
-		else {
-			res.redirect('/')
-		}
-	}
-
 	// restricted access
-	app.use('/users', checkAuth, require('routes/users'));
+	app.use('/users', require('routes/users'));
 
 
 	// catch 404 and forward to error handler

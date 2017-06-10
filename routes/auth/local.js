@@ -24,12 +24,13 @@ router.post('/', (req, res, next) => {
 		if (err) { return next(err); }
 
 		// auth fail
-		if (!user) { return res.send(JSON.stringify({ error: info })) }
+		if (!user) { return res.json({ error: info }) }
 
 		//auth success
 		req.logIn(user, function (err) {
 			if (err) { return next(err); }
-			return res.send(JSON.stringify({ error: null, user: user }))
+			req.app.emit('user_auth_ok', { sessID: req.session.id });
+			return res.json({ error: null, user: user })
 		});
 	})(req, res, next);
 })

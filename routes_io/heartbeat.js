@@ -5,6 +5,7 @@ io.on('connection', function (socket) {
 	//hertbeat
 	setInterval(() => {
 		socket.emit('tic-tac', 'I\'m alive')
+
 	}, 10000);
 
 	//ping responder
