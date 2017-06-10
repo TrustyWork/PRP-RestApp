@@ -43,6 +43,6 @@ io.on('connection', function (socket) {
 	// })
 
 	// cleanup....
-	socket.on('disconnect', () => { app.removeListener('user_auth_ok', handleUserLogin) })
+	// socket.on('disconnect', () => { app.removeListener('user_auth_ok', handleUserLogin) })
 
 });

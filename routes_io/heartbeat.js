@@ -1,10 +1,12 @@
 const io = require('wss');
+const emits_io = require('emits_io');
 
 io.on('connection', function (socket) {
 
 	//hertbeat
 	setInterval(() => {
-		socket.emit('tic-tac', 'I\'m alive')
+		//emits_io.sendToAll('tic-tac', Math.random());
+		socket.emit('tic-tac', Math.random())
 
 	}, 10000);
 
