@@ -1,5 +1,5 @@
 const io = require('wss');
-const app = require('app');
+const app = require('http_server');
 
 let sessions = {}
 

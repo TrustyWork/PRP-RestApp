@@ -1,4 +1,4 @@
-const app = require('app');
+const app = require('http_server');
 const sessionMW = require('storage').sessionMW;
 
 module.exports = function (io) {
