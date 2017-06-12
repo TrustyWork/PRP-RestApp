@@ -29,7 +29,12 @@ const doLocalAuth = (values, dispatch, props) => {
 
 	return fetch('/auth/local', requestOptions)
 		.then(res => res.json())
-		.then(json => { dispatch(authActions.authSuccess(json.user)) })
+		.then(json => {
+			return json.error ?
+				Promise.reject(json.error)
+				:
+				dispatch(authActions.authSuccess(json.user));
+		})
 }
 
 const doExternalAuth = (provider, dispatch) => {
@@ -55,7 +60,7 @@ const doExternalAuth = (provider, dispatch) => {
 	socket.once('user_auth_ok', () => {
 		clearTimeout(authTimeoutTimer);
 		if (!authWin.closed) { authWin.close(); }
-//TODO		dispatch(authActions.authSuccess(json.user));
+		dispatch(authActions.authSuccess(json.user));
 	})
 
 }

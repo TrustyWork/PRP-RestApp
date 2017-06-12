@@ -30,5 +30,4 @@ router.get('/callback', (req, res, next) => {
 	passport.authenticate('google', authmw(req, res, next))(req, res, next);
 });
 
-
 module.exports = router;
