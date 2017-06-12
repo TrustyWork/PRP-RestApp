@@ -15,7 +15,7 @@ import Form from './form';
 
 
 //submit handler
-const doLocalAuth = (values,dispatch,props) => {
+const doLocalAuth = (values, dispatch, props) => {
 
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
@@ -28,66 +28,42 @@ const doLocalAuth = (values,dispatch,props) => {
 	}
 
 	return fetch('/auth/local', requestOptions)
-	.then(res => res.json())
-	.then(json => {dispatch(authActions.authSuccess(json.user))})
+		.then(res => res.json())
+		.then(json => { dispatch(authActions.authSuccess(json.user)) })
 }
 
-// const processLogin = () => {
-// 		//hide loginForm
-// 		this.setState({ isAuthFormShown: false })
-// 		//fetch & update actual state
-// 		this.checkAuth()
-// 			.then((userinfo) => {
-// 				userinfo ?
-// 					this.setState({
-// 						userInfo: userinfo,
-// 						isAuthenticated: true
-// 					})
-// 					:
-// 					this.setState({
-// 						userInfo: {},
-// 						isAuthenticated: false
-// 					})
-// 			});
-// 	}
-
-
-const doExternalAuth = (provider,dispatch) => {
-		const mapperURL = {
-			fb: '/auth/fb',
-			gl: '/auth/gl',
-			insta: '/auth/insta',
-			vk: '/auth/vk',
-			in: '/auth/linkid'
-		}
-
-		const w = 1000;
-		const h = 600;
-		const left = (screen.width / 2) - (w / 2);
-		const top = (screen.height / 2) - (h / 2);
-		let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
-			`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
-		authWin.onbeforeunload = () => {console.log('onbeforeunload')};
-		authWin.onunload = () => {console.log('onunload')};
-		authWin.onclose = () => {console.log('onclose')};
-
-
-		let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
-
-		// rearm event handler
-		socket.off('user_auth_ok');
-		socket.once('user_auth_ok', () => {
-			clearTimeout(authTimeoutTimer);
-			if (!authWin.closed) { authWin.close(); }
-			dispatch(authActions.authFormHide());
-		})
-
+const doExternalAuth = (provider, dispatch) => {
+	const mapperURL = {
+		fb: '/auth/fb',
+		gl: '/auth/gl',
+		insta: '/auth/insta',
+		vk: '/auth/vk',
+		in: '/auth/linkid'
 	}
+
+	const w = 1000;
+	const h = 600;
+	const left = (screen.width / 2) - (w / 2);
+	const top = (screen.height / 2) - (h / 2);
+	let authWin = window.open(mapperURL[provider], 'RESTAPP Auth window',
+		`width=${w},height=${h},top=${top},left=${left},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
+
+	let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
+
+	// rearm event handler
+	socket.off('user_auth_ok');
+	socket.once('user_auth_ok', () => {
+		clearTimeout(authTimeoutTimer);
+		if (!authWin.closed) { authWin.close(); }
+//TODO		dispatch(authActions.authSuccess(json.user));
+	})
+
+}
 
 const AuthForm = (props) => {
 	return (
 		<div>
-			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow}/>
+			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow} />
 			<Dialog
 				title="Create new account"
 				titleClassName={style.title}
@@ -96,7 +72,7 @@ const AuthForm = (props) => {
 				onRequestClose={props.actions.authFormHide}
 				bodyClassName={style.body}
 			>
-			<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth}/>
+				<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
 			</Dialog>
 		</div>
 	)

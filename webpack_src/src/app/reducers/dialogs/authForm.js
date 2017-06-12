@@ -2,9 +2,9 @@ const initialState = {
 	isShown: false
 }
 
-const reducer = (state=initialState,action) => {
+const reducer = (state = initialState, action) => {
 	let _state = Object.assign({}, state);
-	switch(action.type) {
+	switch (action.type) {
 		case 'LOGIN_FORM_SHOW':
 			_state.isShown = true;
 			break;

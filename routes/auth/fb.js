@@ -5,7 +5,7 @@ const authModel = require('models/auth');
 const userModel = require('models/user');
 const config = require('config');
 const FacebookStrategy = require('passport-facebook').Strategy;
-
+const authmw = require('./authmw');
 
 passport.use(new FacebookStrategy({
 	clientID: config.get('auth:facebookAuth:clientID'),
@@ -27,9 +27,8 @@ router.get('/', passport.authenticate('facebook', {
 	scope: ['email']
 }));
 
-router.get('/callback', passport.authenticate('facebook', { failureRedirect: '/' }),
-	function (req, res) {
-		res.redirect('/auth/postauth');
-	});
+router.get('/callback', (req, res, next) => {
+	passport.authenticate('facebook', authmw(req, res, next))(req, res, next);
+});
 
 module.exports = router;
