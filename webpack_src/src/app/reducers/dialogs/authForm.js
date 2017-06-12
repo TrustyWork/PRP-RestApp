@@ -1,8 +1,5 @@
 const initialState = {
-	isShown: false,
-	username: '',
-	email: '',
-	password: ''
+	isShown: false
 }
 
 const reducer = (state=initialState,action) => {
