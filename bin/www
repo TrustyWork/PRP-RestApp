@@ -7,7 +7,7 @@
 const app = require('http_server');
 const debug = require('debug')();
 const http = require('http');
-const wss = require('wss');
+const ws_server = require('ws_server');
 const config = require('config');
 
 /**
@@ -24,7 +24,7 @@ const server = http.createServer(app);
 /**
  * websockets setup
  */
-const io = wss(require('socket.io')(server));
+const io = ws_server(require('socket.io')(server));
 
 
 /**
