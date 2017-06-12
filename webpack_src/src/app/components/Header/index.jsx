@@ -1,28 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
+//import { bindActionCreators } from 'redux';
+import * as authActions from 'app/actions/auth';
 
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import AuthForm from 'app/components/AuthForm';
 
 import style from './style.scss'
-
-const Header = ({ isAuthenticated, isOnline, handleLogout, ...props }) => {
+// { isAuthenticated,  handleLogout, ...props }
+const Header = (props) => {
 	console.log('props in Header', props);
 	return (
 		<AppBar
-			title="RestApp"
+			title={props.user.username ? `RestApp: Welcome, ${props.user.username}` : 'RestApp'}
 			iconElementRight={
-				isAuthenticated ?
+				props.user.username ?
 					<FlatButton
 						label="LogOut"
-						onTouchTap={handleLogout}
+						onTouchTap={props.handleLogout}
 					/>
 					:
-					<AuthForm  />
+					<AuthForm />
 			}
 		>
 		</AppBar>
 	)
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+	return {
+		user: state.user
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		handleLogout: () => { dispatch(authActions.authLogout()) }
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

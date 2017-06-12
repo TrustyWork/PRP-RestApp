@@ -9,6 +9,7 @@ const reducer = (state=initialState,action) => {
 			_state.isShown = true;
 			break;
 		case 'LOGIN_FORM_HIDE':
+		case 'AUTH_SUCCESS':
 			_state.isShown = false;
 			break;
 		default:

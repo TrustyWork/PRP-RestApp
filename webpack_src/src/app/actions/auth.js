@@ -16,3 +16,9 @@ export const authSuccess = (user) => {
 		payload: user
 	}
 }
+
+export const authLogout = () => {
+	return {
+		type: 'LOGOUT'
+	}
+}

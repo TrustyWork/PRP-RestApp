@@ -13,7 +13,9 @@ const reducer = (state = initialState, action) => {
 			_state.email = action.payload.email;
 			_state.uid = action.payload._id;
 			break;
-
+		case 'LOGOUT':
+			_state = initialState;
+			break;
 		default:
 			return state;
 	}
