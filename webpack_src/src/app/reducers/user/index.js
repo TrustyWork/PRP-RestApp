@@ -8,7 +8,10 @@ const reducer = (state = initialState, action) => {
 	let _state = Object.assign({},state);
 
 	switch (action.type) {
-		case '_':
+		case 'AUTH_SUCCESS':
+			_state.username = action.payload.username;
+			_state.email = action.payload.email;
+			_state.uid = action.payload._id;
 			break;
 
 		default:

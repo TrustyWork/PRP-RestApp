@@ -9,3 +9,10 @@ export const authFormHide = () => {
 		type: 'LOGIN_FORM_HIDE'
 	}
 }
+
+export const authSuccess = (user) => {
+	return {
+		type: 'AUTH_SUCCESS',
+		payload: user
+	}
+}
