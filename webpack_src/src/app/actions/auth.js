@@ -27,10 +27,12 @@ export const authLogout = () => {
 
 export const fetchMyUserData = () => {
 	return (dispatch) => {
-		console.log('FMUD')
-		return new Promise ((res,rej) => {
-			socket.once('/api/user/', (response) => { res(dispatch(authSuccess(response.data.user))) });
+
+		return new Promise((res, rej) => {
+			const handler = (response) => { res(dispatch(authSuccess(response.data.user))) }
+			socket.once('/api/user/', handler);
 			socket.emit('/api/user/', { param: 'me' });
+			const timer = setTimeout(() => { socket.off('/api/user/', handler); rej() }, 5000);
 		})
 	}
 }
