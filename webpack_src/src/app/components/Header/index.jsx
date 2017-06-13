@@ -10,7 +10,6 @@ import AuthForm from 'app/components/AuthForm';
 import style from './style.scss'
 // { isAuthenticated,  handleLogout, ...props }
 const Header = (props) => {
-	console.log('props in Header', props);
 	return (
 		<AppBar
 			title={props.user.username ? `RestApp: Welcome, ${props.user.username}` : 'RestApp'}
@@ -36,7 +35,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleLogout: () => { dispatch(authActions.authLogout()) }
+		handleLogout: () => { dispatch(authActions.authFullLogout()) }
 	}
 }
 

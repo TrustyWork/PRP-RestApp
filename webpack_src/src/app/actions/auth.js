@@ -29,10 +29,19 @@ export const fetchMyUserData = () => {
 	return (dispatch) => {
 
 		return new Promise((res, rej) => {
-			const handler = (response) => { res(dispatch(authSuccess(response.data.user))) }
+			const handler = (response) => { res( response.data.user && dispatch(authSuccess(response.data.user))) }
 			socket.once('/api/user/', handler);
 			socket.emit('/api/user/', { param: 'me' });
 			const timer = setTimeout(() => { socket.off('/api/user/', handler); rej() }, 5000);
 		})
+		.catch();
+	}
+}
+
+export const authFullLogout = () => {
+	return (dispatch) => {
+		fetch('/auth/logout', { credentials: 'include' })
+		.then( () => dispatch(authLogout()))
+		.catch();
 	}
 }
