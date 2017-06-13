@@ -1,4 +1,4 @@
-const io = require('wss');
+const io = require('ws_server');
 
 let emits = [];
 

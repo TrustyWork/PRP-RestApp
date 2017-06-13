@@ -1,4 +1,4 @@
-const io = require('wss');
+const io = require('ws_server');
 const app = require('http_server');
 
 let sessions = {}

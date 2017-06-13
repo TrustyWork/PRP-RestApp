@@ -1,4 +1,4 @@
-const io = require('wss');
+const io = require('ws_server');
 const loadAVG = require('os').loadavg;
 const freemem = require('os').freemem;
 io.on('connection', function (socket) {
