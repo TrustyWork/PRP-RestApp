@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from 'app/actions/sidemenu';
 
-console.log (actionCreators);
 
 import style from './style.scss';
 
