@@ -72,7 +72,7 @@ const AuthForm = (props) => {
 		<div>
 			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow} />
 			<Dialog
-				title="Create new account"
+				title="Login or create new account"
 				titleClassName={style.title}
 				modal={false}
 				open={props.isShown}

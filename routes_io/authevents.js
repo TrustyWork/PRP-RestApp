@@ -1,36 +1,36 @@
 const io = require('ws_server');
 const app = require('http_server');
 
-let sessions = {}
+// let sessions = {}
 
-const emitBySession = (sid, path, data) => {
-	return new Promise((res, rej) => {
-		if (!sessions[sid]) {
-			return rej();
-		}
+// const emitBySession = (sid, path, data) => {
+// 	return new Promise((res, rej) => {
+// 		if (!sessions[sid]) {
+// 			return rej();
+// 		}
 
-		for (socket of sessions[sid]) {
-			socket.emit(path, data);
-		}
+// 		for (socket of sessions[sid]) {
+// 			socket.emit(path, data);
+// 		}
 
-		res();
-	})
-}
+// 		res();
+// 	})
+// }
 
-app.addListener('user_auth_ok', (data) => {
-	emitBySession(data.sesID, '/auth/login', {});
-});
+// app.addListener('user_auth_ok', (data) => {
+// 	emitBySession(data.sesID, '/auth/login', {});
+// });
 
-io.on('connection', function (socket) {
+// io.on('connection', function (socket) {
 
-	if (socket.handshake.session && socket.handshake.session.id) {
-		let sid = socket.handshake.session.id;
-		if (!sessions[sid]) {
-			sessions[sid] = [];
-		}
+// 	if (socket.handshake.session && socket.handshake.session.id) {
+// 		let sid = socket.handshake.session.id;
+// 		if (!sessions[sid]) {
+// 			sessions[sid] = [];
+// 		}
 
-		sessions[sid].push(socket);
-	}
+// 		sessions[sid].push(socket);
+// 	}
 
 	// socket.on('/api/user/', (payload) => {
 	// 	switch (payload.method) {
@@ -45,4 +45,4 @@ io.on('connection', function (socket) {
 	// cleanup....
 	// socket.on('disconnect', () => { app.removeListener('user_auth_ok', handleUserLogin) })
 
-});
+// });

@@ -16,6 +16,7 @@ module.exports = function (io) {
 	require('routes_io/rooms');
 	require('routes_io/cpuload');
 	require('routes_io/authevents');
+	require('routes_io/api_user');
 	//io custom methods
 	io.sendToUid = function(uid,data) {
 		if ( /^uid_.+/.test(uid) )

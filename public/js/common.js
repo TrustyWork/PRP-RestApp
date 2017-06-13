@@ -1,4 +1,4 @@
-let socket = io.connect('http://localhost:4000');
+let socket = io.connect();
 
 socket.on('connect', () => {
 	console.log('Websocket connected!');
@@ -20,7 +20,11 @@ socket.on('restapp_roomMessage',(msg)=>{
 	console.log(msg);
 })
 
-//socket.emit('ping');
+//tests
+socket.emit('/api/user/', { param: 'me'});
+socket.emit('/api/user/', { param: '666'});
+socket.emit('/api/user/', { param: '5939550f4e64fd034bccfd51'});
+socket.on('/api/user/', (res) => { console.log('/api/user/ response:', res) })
 
 setInterval(() => {
 	console.log('pinging');
