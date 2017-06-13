@@ -1,4 +1,6 @@
 import React from 'react';
+import store from 'app/store';
+import { fetchMyUserData } from 'app/actions/auth'
 
 import Header from 'app/components/Header';
 import SideMenu from 'app/components/SideMenu';
@@ -28,6 +30,7 @@ class MainPage extends React.Component {
 
 
 	componentDidMount() {
+		store.dispatch(fetchMyUserData());
 		// this.checkAuth()
 		// 	.then((userinfo) => {
 		// 		userinfo ?
