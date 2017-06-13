@@ -35,6 +35,7 @@ const doLocalAuth = (values, dispatch, props) => {
 				:
 				dispatch(authActions.authSuccess(json.user));
 		})
+		.catch();
 }
 
 const doExternalAuth = (provider, dispatch) => {
@@ -56,12 +57,13 @@ const doExternalAuth = (provider, dispatch) => {
 	let authTimeoutTimer = setTimeout(() => { authWin.close(); }, 90000);
 
 	// rearm event handler
-	socket.off('user_auth_ok');
-	socket.once('user_auth_ok', () => {
+	let listener = (user) => {
 		clearTimeout(authTimeoutTimer);
 		if (!authWin.closed) { authWin.close(); }
-		dispatch(authActions.authSuccess(json.user));
-	})
+		dispatch(authActions.authSuccess(user.user));
+	}
+	socket.off('/api/auth/success', listener);
+	socket.once('/api/auth/success', listener);
 
 }
 

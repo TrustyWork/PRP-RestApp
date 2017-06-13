@@ -15,11 +15,10 @@ import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-console.log('Store:', store.getState());
-
-
 socket.on('connect', () => { store.dispatch({ type: 'APP_ONLINE', data: '' }) });
 socket.on('disconnect', () => { store.dispatch({ type: 'APP_OFFLINE', data: '' }) });
+
+//socket.on ('/api/auth/success', (user) => { console.log('user auth success',user) });
 
 //setInterval(() => { store.dispatch({ type: 'ADD_SIDEMENU_ENTRY', data: '' }) }, 5000);
 function getRandomInt(min, max) {

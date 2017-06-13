@@ -1,3 +1,5 @@
+const sendToSid = require('emits_io').sendToSid;
+
 module.exports = (req, res, next) => (err, user, info) => {
 
 	if (err) { return next(err); }
@@ -8,7 +10,7 @@ module.exports = (req, res, next) => (err, user, info) => {
 	//auth success
 	req.logIn(user, function (err) {
 		if (err) { return next(err); }
-		req.app.emit('user_auth_ok', { sessID: req.session.id });
+		sendToSid('/api/auth/success', { user: user }, req.session.id);
 		return res.json({ error: null, user: user })
 	});
 }
