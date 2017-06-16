@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
 import style from './style.scss';
 import { reduxForm, Field } from 'redux-form';
+import socket from 'app/util/websockets';
 
 const socialBtnStyle = {
 	border: "1px solid rgba(100,100,100,0.5)",
@@ -21,6 +22,19 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 	/>
 )
 
+const asyncValidate = (values) => {
+	console.log('entering Avalidate');
+	const validateResult = new Promise((res, rej) => {
+		socket.emit('/api/user/check', values);
+		socket.once('/api/user/check', (data) => {
+			console.log('validated as:', data);
+			data.error.username || data.error.email  ? rej(data.error) : res({});
+		})
+
+	})
+
+	return validateResult;
+}
 const validate = (values) => {
 
 	const errors = {}
@@ -54,7 +68,7 @@ let Form = (props) => {
 					label="Connect with Facebook"
 					icon={<FontIcon className={"fa fa-facebook-official"} />}
 					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleExternalAuth('fb',dispatch)}
+					onTouchTap={() => handleExternalAuth('fb', dispatch)}
 				/>
 				<FlatButton
 					fullWidth={true}
@@ -63,7 +77,7 @@ let Form = (props) => {
 					label="Connect with Google"
 					icon={<FontIcon className={"fa fa-google"} />}
 					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleExternalAuth('gl',dispatch)}
+					onTouchTap={() => handleExternalAuth('gl', dispatch)}
 				/>
 				<FlatButton
 					fullWidth={true}
@@ -72,7 +86,7 @@ let Form = (props) => {
 					label="Connect with Linkedin"
 					icon={<FontIcon className={"fa fa-linkedin-square"} />}
 					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleExternalAuth('in',dispatch)}
+					onTouchTap={() => handleExternalAuth('in', dispatch)}
 				/>
 				<FlatButton
 					fullWidth={true}
@@ -81,7 +95,7 @@ let Form = (props) => {
 					label="Connect with Instagram"
 					icon={<FontIcon className={"fa fa-instagram"} />}
 					style={{ ...socialBtnStyle, color: "#000000", }}
-					onTouchTap={() => handleExternalAuth('insta',dispatch)}
+					onTouchTap={() => handleExternalAuth('insta', dispatch)}
 				/>
 			</div>
 			<div className={style.middlecolumn}> <div className={style.middlecolumntext} >or</div> </div>
@@ -113,7 +127,7 @@ let Form = (props) => {
 				/>
 			</div>
 			{/*Auth progres...*/}
-			{submitting && <div className ={style.darken}>
+			{submitting && <div className={style.darken}>
 				<CircularProgress size={100} thickness={10} />
 			</div>}
 		</form>
@@ -123,6 +137,7 @@ let Form = (props) => {
 
 Form = reduxForm({
 	form: 'authForm',
-	validate
+	validate,
+	asyncValidate
 })(Form)
 export default Form;
