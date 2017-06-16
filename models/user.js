@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const reviewModel = require('models/review');
-console.log('gg');
+ 
 
 const UserSchema = {
 	// _id will be created by Mongo
