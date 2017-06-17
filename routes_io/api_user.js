@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
 		console.log(checkUserData);
 		let checkResult = {};
 		if (data.username) {
-			for (userID in users) {
+			for (let userID in users) {
 				if (users[userID].username == data.username) {
 					checkResult.username = "username already taken!";
 					break;
