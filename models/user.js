@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const reviewModel = require('models/review');
+ 
 
 const UserSchema = {
 	// _id will be created by Mongo
@@ -24,6 +25,11 @@ const UserSchema = {
 		type: Schema.Types.ObjectId,
 		ref: 'Auth'
 	}],
+
+    review: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
 
 	email: {
 		type: Schema.Types.String
@@ -69,10 +75,14 @@ User.statics.deserializeUser = function () {
 };
 
 User.methods.updateAuthRef = function (ref) {
-	this.auth.push(ref);
-	return this.save();
+    this.auth.push(ref);
+    return this.save();
 }
 
+User.methods.updateReviewRef = function (ref) {
+    this.review.push(ref);
+    return this.save();
+}
 /**
  * @return {Promise}
  */
