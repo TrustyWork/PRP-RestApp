@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from 'app/containers/MainPage';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import socket from 'app/util/websockets';
+import socket from 'app/ws_client';
 
 import 'font-awesome/css/font-awesome.css';
 import './main.scss';

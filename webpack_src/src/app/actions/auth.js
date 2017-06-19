@@ -1,4 +1,4 @@
-import socket from 'app/util/websockets';
+import socket from 'app/ws_client';
 
 export const authFormShow = () => {
 	return {
