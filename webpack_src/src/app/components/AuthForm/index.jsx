@@ -70,7 +70,11 @@ const doExternalAuth = (provider, dispatch) => {
 const AuthForm = (props) => {
 	return (
 		<div>
-			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow} />
+			<MenuItem
+				disabled={!props.isOnline}
+				primaryText="Login..."
+				onTouchTap={props.actions.authFormShow}
+			/>
 			<Dialog
 				title="Login or create new account"
 				titleClassName={style.title}
