@@ -51,7 +51,7 @@
 }
 
 @media screen and (max-width: 699px) {
-	.body
+.body
 	{
 		display: flex;
 		justify-content: space-around;
@@ -59,7 +59,7 @@
 		align-items: stretch;
 		min-height: 380px;
 	}
-	.maincolumn {
+.maincolumn {
 	@include debugdiv;
 	width: 100%;
 	display: flex;
