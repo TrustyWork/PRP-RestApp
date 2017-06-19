@@ -32,9 +32,9 @@ export const fetchMyUserData = () => {
 			const handler = (response) => { res( response.data.user && dispatch(authSuccess(response.data.user))) }
 			socket.once('/api/user/', handler);
 			socket.emit('/api/user/', { param: 'me' });
-			const timer = setTimeout(() => { socket.off('/api/user/', handler); rej() }, 5000);
+			const timer = setTimeout(() => { socket.off('/api/user/', handler); rej(new Error('Timeout in fetchMyUserData')) }, 5000);
 		})
-		.catch();
+		.catch((err)=>{console.log(err)});
 	}
 }
 
