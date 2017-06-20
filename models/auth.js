@@ -126,7 +126,7 @@ Auth.statics.registerLocal = function (userData, cb) {
 Auth.statics.authenticateLocal = function () {
 
 	return (email, password, cb) => {
-
+		console.log(email,password,cb);
 		let query = {
 			email: email
 		}
@@ -136,6 +136,7 @@ Auth.statics.authenticateLocal = function () {
 			.exec()
 			.then(userToAuth => {
 				if (!userToAuth) {
+					console.log('email not found!');
 					throw new Error('Email not found')
 				} else if (!userToAuth.auth.length) {
 					throw new Error('Auth data for local auth is not found')

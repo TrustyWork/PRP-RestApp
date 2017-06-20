@@ -11,32 +11,10 @@ import style from './style.scss';
 
 import * as authActions from 'app/actions/auth';
 
-import Form from './form';
+import AuthForm from './authform';
 
 
-//submit handler
-const doLocalAuth = (values, dispatch, props) => {
 
-	const myHeaders = new Headers();
-	myHeaders.append('Content-Type', 'application/json');
-
-	const requestOptions = {
-		credentials: 'include',
-		method: 'POST',
-		headers: myHeaders,
-		body: JSON.stringify(values)
-	}
-
-	return fetch('/auth/local', requestOptions)
-		.then(res => res.json())
-		.then(json => {
-			return json.error ?
-				Promise.reject(json.error)
-				:
-				dispatch(authActions.authSuccess(json.user));
-		})
-		.catch();
-}
 
 const doExternalAuth = (provider, dispatch) => {
 	const mapperURL = {
@@ -67,19 +45,19 @@ const doExternalAuth = (provider, dispatch) => {
 
 }
 
-const AuthForm = (props) => {
+const AuthDialog = (props) => {
 	return (
 		<div>
 			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow} />
 			<Dialog
-				title="Login or create new account"
+				title="Connect with social network or with local account"
 				titleClassName={style.title}
 				modal={false}
 				open={props.isShown}
 				onRequestClose={props.actions.authFormHide}
 				bodyClassName={style.body}
 			>
-				<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
+				<AuthForm handleExternalAuth={doExternalAuth} />
 			</Dialog>
 		</div>
 	)
@@ -95,4 +73,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthDialog);

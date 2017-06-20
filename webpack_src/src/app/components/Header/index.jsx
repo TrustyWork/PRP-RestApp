@@ -5,7 +5,7 @@ import * as authActions from 'app/actions/auth';
 
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import AuthForm from 'app/components/AuthForm';
+import AuthDialog from 'app/components/AuthDialog';
 
 import style from './style.scss'
 
@@ -20,7 +20,7 @@ const Header = (props) => {
 						onTouchTap={props.handleLogout}
 					/>
 					:
-					<AuthForm />
+					<AuthDialog />
 			}
 		>
 		</AppBar>
