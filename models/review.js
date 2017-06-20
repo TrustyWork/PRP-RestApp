@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const userModel = require('models/user');
 //const restModel = require('models/rest'); //uncomment if restModel
-
+const commentModel = require('models/comment');
 
 const ReviewSchema = {
     // _id will be created by Mongo
@@ -27,15 +27,18 @@ const ReviewSchema = {
 
     content: {type: Schema.Types.Mixed , required: true},
 
+    comment: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }],
+
+    likes: { type: Number },
+
     createTime: {
         type: Schema.Types.Date,
         default: Date.now
-    },
+    }
 
-    modifyTime: {
-        type: Schema.Types.Date,
-        default: Date.now
-    },
 };
 
 const Review = new Schema(ReviewSchema);
@@ -51,7 +54,7 @@ Review.statics.addReviewRecord = function (user,
        // , rest: rest
         , author: author
         , content: content
-
+        , comment: []
 
     });
 
@@ -64,6 +67,10 @@ Review.statics.addReviewRecord = function (user,
 
 };
 
+Review.methods.updateCommentRef = function (ref) {
+    this.comment.push(ref);
+    return this.save();
+};
 
 Review.statics.findByUser = function (user) {
 
@@ -80,7 +87,12 @@ Review.statics.findByAuthor = function (author) {
     return this.find({ author: author }).exec();
 };
 
+Review.statics.findById = function (id) {
+
+    return this.findOne({ _id: id }).exec();
+};
 
 
 module.exports = mongoose.model('Review', Review);
+
 
