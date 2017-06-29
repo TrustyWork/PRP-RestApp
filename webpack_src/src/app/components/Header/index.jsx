@@ -18,9 +18,10 @@ const Header = (props) => {
 					<FlatButton
 						label="LogOut"
 						onTouchTap={props.handleLogout}
+						disabled={!props.isOnline}
 					/>
 					:
-					<AuthForm />
+					<AuthForm {...props}/>
 			}
 		>
 		</AppBar>
@@ -30,6 +31,7 @@ const Header = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		user: state.common.user,
+		isOnline: state.common.isOnline,
 		users: state.users
 	}
 }
