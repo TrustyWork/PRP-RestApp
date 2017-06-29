@@ -7,6 +7,7 @@ import socket from 'app/util/websockets';
 
 import 'font-awesome/css/font-awesome.css';
 import './main.scss';
+import 'normalize.css/normalize.css'
 
 import { Provider } from 'react-redux';
 import store from './store';
