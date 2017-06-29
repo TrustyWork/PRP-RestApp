@@ -35,12 +35,13 @@ setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx:
 
 
 ReactDOM.render (
-	<BrowserRouter>
 	<Provider store={store}>
-	<MuiThemeProvider>
-		<MainPage />
-	</MuiThemeProvider>
+		<BrowserRouter>
+			<MuiThemeProvider>
+				<MainPage />
+			</MuiThemeProvider>
+		</BrowserRouter>
 	</Provider>
-	</BrowserRouter>
+
 	, document.querySelector('#rm-root')
 );
