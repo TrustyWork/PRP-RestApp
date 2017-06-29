@@ -1,4 +1,4 @@
-import socket from 'app/util/websockets';
+import socket from 'app/ws_client';
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 
@@ -70,7 +70,11 @@ const doExternalAuth = (provider, dispatch) => {
 const AuthForm = (props) => {
 	return (
 		<div>
-			<MenuItem primaryText="Login..." onTouchTap={props.actions.authFormShow} />
+			<MenuItem
+				disabled={!props.isOnline}
+				primaryText="Login..."
+				onTouchTap={props.actions.authFormShow}
+			/>
 			<Dialog
 				title="Login or create new account"
 				titleClassName={style.title}

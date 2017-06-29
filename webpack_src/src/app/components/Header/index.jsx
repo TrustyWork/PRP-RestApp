@@ -8,19 +8,20 @@ import FlatButton from 'material-ui/FlatButton';
 import AuthForm from 'app/components/AuthForm';
 
 import style from './style.scss'
-// { isAuthenticated,  handleLogout, ...props }
+
 const Header = (props) => {
 	return (
 		<AppBar
-			title={props.user.username ? `RestApp: Welcome, ${props.user.username}` : 'RestApp'}
+			title={props.user ? `RestApp: Welcome, ${props.users[props.user].username}` : 'RestApp'}
 			iconElementRight={
-				props.user.username ?
+				props.user ?
 					<FlatButton
 						label="LogOut"
 						onTouchTap={props.handleLogout}
+						disabled={!props.isOnline}
 					/>
 					:
-					<AuthForm />
+					<AuthForm {...props}/>
 			}
 		>
 		</AppBar>
@@ -29,7 +30,9 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.user
+		user: state.common.user,
+		isOnline: state.common.isOnline,
+		users: state.users
 	}
 }
 

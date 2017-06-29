@@ -1,5 +1,8 @@
 
-const initialState = { isOnline: true }
+const initialState = {
+	isOnline: true,
+	user: null
+}
 
 const reducer = (state = initialState, action) => {
 	let _state = Object.assign({}, state);
@@ -9,6 +12,12 @@ const reducer = (state = initialState, action) => {
 			break;
 		case 'APP_OFFLINE':
 			_state.isOnline = false;
+			break;
+		case 'AUTH_SUCCESS':
+			_state.user = action.payload._id
+			break;
+		case 'LOGOUT':
+			_state.user = null;
 			break;
 		default:
 			return state;

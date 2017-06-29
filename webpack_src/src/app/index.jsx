@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from 'app/containers/MainPage';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import socket from 'app/util/websockets';
+import socket from 'app/ws_client';
 
 import 'font-awesome/css/font-awesome.css';
 import './main.scss';
+import 'normalize.css/normalize.css'
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -28,7 +29,7 @@ function getRandomInt(min, max) {
 }
 
 //disable to save traffic
-//setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx: getRandomInt(0, 5), url:'http://lorempixel.com/350/350/food/' + getRandomInt(1, 10)+'/'   } }) }, 5000);
+setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx: getRandomInt(0, 5), url:'http://lorempixel.com/350/350/food/' + getRandomInt(1, 10)+'/'   } }) }, 5000);
 
 
 
