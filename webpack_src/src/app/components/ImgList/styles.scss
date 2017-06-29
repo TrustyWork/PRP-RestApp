@@ -1,0 +1,29 @@
+.restolist {
+	position:relative;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-around;
+	flex-wrap: wrap;
+
+	.restoitem {
+		background-position: top center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		flex: 0 0 auto;
+		margin: 1rem 0.5rem;
+		width: 15rem;
+		height: 15rem;
+		overflow: hidden;
+
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: flex-end;
+
+		div {
+			font-size: 1.5rem;
+			padding: 1rem;
+			background-color: rgba(0,0,0,0.3);
+		}
+	}
+}
