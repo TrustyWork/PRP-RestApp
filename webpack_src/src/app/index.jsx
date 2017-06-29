@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import MainPage from 'app/containers/MainPage';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import socket from 'app/ws_client';
+import { BrowserRouter } from 'react-router-dom'
 
 import 'font-awesome/css/font-awesome.css';
 import './main.scss';
@@ -34,11 +35,12 @@ setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx:
 
 
 ReactDOM.render (
+	<BrowserRouter>
 	<Provider store={store}>
 	<MuiThemeProvider>
 		<MainPage />
 	</MuiThemeProvider>
 	</Provider>
-
+	</BrowserRouter>
 	, document.querySelector('#rm-root')
 );
