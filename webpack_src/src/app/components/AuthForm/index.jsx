@@ -1,4 +1,4 @@
-import socket from 'app/util/websockets';
+import socket from 'app/ws_client';
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 
