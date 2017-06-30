@@ -29,7 +29,7 @@ function getRandomInt(min, max) {
 }
 
 //disable to save traffic
-setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx: getRandomInt(0, 5), url:'http://lorempixel.com/350/350/food/' + getRandomInt(1, 10)+'/'   } }) }, 5000);
+//setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx: getRandomInt(0, 5), url:'http://lorempixel.com/350/350/food/' + getRandomInt(1, 10)+'/'   } }) }, 5000);
 
 
 

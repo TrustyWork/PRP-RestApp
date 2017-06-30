@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as authActions from 'app/actions/auth';
 
 import FlatButton from 'material-ui/FlatButton';
+import Modal from 'react-modal';
+
 import AuthForm from 'app/components/AuthForm';
 
 import style from './style.scss'
@@ -20,10 +22,18 @@ const Header = (props) => {
 						onClick={props.handleLogout}
 					>
 						Logout...
-				</button>
+					</button>
 					:
-					<AuthForm className={style.pullright} {...props} />
+					<button
+						className={style.pullright}
+						onClick={props.handleLogin}
+					>
+						Login...
+					</button>
 			}
+
+			<AuthForm  {...props} />
+
 		</div>
 	)
 }
@@ -38,7 +48,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleLogout: () => { dispatch(authActions.authFullLogout()) }
+		handleLogout: () => { dispatch(authActions.authFullLogout()) },
+		handleLogin: () => { dispatch(authActions.authFormShow()) }
 	}
 }
 

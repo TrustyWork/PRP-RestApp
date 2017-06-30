@@ -1,5 +1,7 @@
 import socket from 'app/ws_client';
 import React from 'react';
+import Modal from 'react-modal';
+
 import Dialog from 'material-ui/Dialog';
 
 import MenuItem from 'material-ui/MenuItem';
@@ -69,13 +71,20 @@ const doExternalAuth = (provider, dispatch) => {
 
 const AuthForm = (props) => {
 	return (
-		<div>
-			<MenuItem
+
+		<Modal
+			className={style.dialog}
+			overlayClassName={style.overlay}
+			isOpen={props.isShown}
+			onRequestClose={props.actions.authFormHide}
+		>
+			<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
+			{/*<MenuItem
 				disabled={!props.isOnline}
 				primaryText="Login..."
 				onTouchTap={props.actions.authFormShow}
-			/>
-			<Dialog
+			/>*/}
+			{/*<Dialog
 				title="Login or create new account"
 				titleClassName={style.title}
 				modal={false}
@@ -84,8 +93,8 @@ const AuthForm = (props) => {
 				bodyClassName={style.body}
 			>
 				<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
-			</Dialog>
-		</div>
+			</Dialog>*/}
+		</Modal>
 	)
 }
 

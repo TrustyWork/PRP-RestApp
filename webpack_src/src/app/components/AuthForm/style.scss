@@ -2,9 +2,25 @@
 {
 //	 border: 1px gray dotted;
 }
-
-.title {
-	text-align: center;
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.dialog {
+	position: absolute;
+    top: 20%;
+    left: 20%;
+    right: 20%;
+    bottom: 20%;
+    border: 1px solid #ccc;
+    background: #FFFFFF;
+    border-radius: 1rem;
+    padding: 2rem;
+	outline: none;
 }
 
 .body
@@ -16,15 +32,6 @@
 		width: 100%;
 	}
 
-.darken {
-	position:absolute;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(0,0,0,0.5);
-	height:100%;
-	width:100%;
-}
 
 .maincolumn {
 	@include debugdiv;
