@@ -65,9 +65,11 @@ Review.statics.addReviewRecord = function (user,
     user.updateReviewRef(reviewRecord._id);
     //rest.updateReviewRef(reviewRecord._id); //uncomment if restModel
 
+
 };
 
 Review.methods.updateCommentRef = function (ref) {
+
     this.comment.push(ref);
     return this.save();
 };
@@ -91,6 +93,14 @@ Review.statics.findById = function (id) {
 
     return this.findOne({ _id: id }).exec();
 };
+
+Review.statics.increaseLikes = function (id) {
+
+    return this.update({ _id: id }, {$inc: { likes: 1}}).exec();
+
+
+};
+
 
 
 module.exports = mongoose.model('Review', Review);
