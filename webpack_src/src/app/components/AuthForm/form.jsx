@@ -47,15 +47,17 @@ let Form = (props) => {
 	return (
 		<form className={style.body}>
 			<div className={style.maincolumn}>
-				<FlatButton
+				<button
 					fullWidth={true}
 					backgroundColor="#3b5999"
 					hoverColor="#3b5999"
 					label="Connect with Facebook"
 					icon={<FontIcon className={"fa fa-facebook-official"} />}
-					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
+					//style={{ ...socialBtnStyle, color: "#FFFFFF", }}
 					onTouchTap={() => handleExternalAuth('fb',dispatch)}
-				/>
+				>
+					Connect with Facebook
+				</button>
 				<FlatButton
 					fullWidth={true}
 					backgroundColor="#dd4b39"
