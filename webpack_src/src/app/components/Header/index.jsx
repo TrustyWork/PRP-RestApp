@@ -2,9 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as authActions from 'app/actions/auth';
 
-import FlatButton from 'material-ui/FlatButton';
-import Modal from 'react-modal';
-
 import AuthForm from 'app/components/AuthForm';
 
 import style from './style.scss'

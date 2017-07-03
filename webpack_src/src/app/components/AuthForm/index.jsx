@@ -1,20 +1,13 @@
 import socket from 'app/ws_client';
 import React from 'react';
 import Modal from 'react-modal';
-
-import Dialog from 'material-ui/Dialog';
-
-import MenuItem from 'material-ui/MenuItem';
-
+import Form from './form';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import style from './style.scss';
-
 import * as authActions from 'app/actions/auth';
 
-import Form from './form';
-
+import style from './style.scss';
 
 //submit handler
 const doLocalAuth = (values, dispatch, props) => {
