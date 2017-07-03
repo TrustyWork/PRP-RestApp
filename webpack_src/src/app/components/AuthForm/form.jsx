@@ -1,21 +1,10 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField';
-import CircularProgress from 'material-ui/CircularProgress';
 import style from './style.scss';
 import { reduxForm, Field } from 'redux-form';
 
-const socialBtnStyle = {
-	border: "1px solid rgba(100,100,100,0.5)",
-	textAlign: "left"
-};
-
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-	<TextField
-		hintText={label}
-		floatingLabelText={label}
-		errorText={touched && error}
+
+	<input
 		{...input}
 		{...custom}
 	/>
@@ -48,43 +37,36 @@ let Form = (props) => {
 		<form className={style.body}>
 			<div className={style.maincolumn}>
 				<button
-					fullWidth={true}
-					backgroundColor="#3b5999"
-					hoverColor="#3b5999"
-					label="Connect with Facebook"
-					icon={<FontIcon className={"fa fa-facebook-official"} />}
-					//style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleExternalAuth('fb',dispatch)}
+					className={style.fb}
+					onTouchTap={() => handleExternalAuth('fb', dispatch)}
 				>
-					Connect with Facebook
+					<span><i className={"fa fa-facebook"}></i></span>
+					<span>Connect with Facebook</span>
 				</button>
-				<FlatButton
-					fullWidth={true}
-					backgroundColor="#dd4b39"
-					hoverColor="#dd4b39"
-					label="Connect with Google"
-					icon={<FontIcon className={"fa fa-google"} />}
-					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleExternalAuth('gl',dispatch)}
-				/>
-				<FlatButton
-					fullWidth={true}
-					backgroundColor="#0077b5"
-					hoverColor="#0077B5"
-					label="Connect with Linkedin"
-					icon={<FontIcon className={"fa fa-linkedin-square"} />}
-					style={{ ...socialBtnStyle, color: "#FFFFFF", }}
-					onTouchTap={() => handleExternalAuth('in',dispatch)}
-				/>
-				<FlatButton
-					fullWidth={true}
-					backgroundColor="#FFFFFF"
-					hoverColor="#FFFFFF"
-					label="Connect with Instagram"
-					icon={<FontIcon className={"fa fa-instagram"} />}
-					style={{ ...socialBtnStyle, color: "#000000", }}
-					onTouchTap={() => handleExternalAuth('insta',dispatch)}
-				/>
+
+				<button
+					className={style.gl}
+					onTouchTap={() => handleExternalAuth('gl', dispatch)}
+				>
+					<i className={"fa fa-google"}></i>
+					<span>Connect with Google</span>
+				</button>
+
+				<button
+					className={style.in}
+					onTouchTap={() => handleExternalAuth('in', dispatch)}
+				>
+					<i className={"fa fa-linkedin-square"}></i>
+					<span>Connect with Linkedin</span>
+				</button>
+
+				<button
+					className={style.ig}
+					onTouchTap={() => handleExternalAuth('insta', dispatch)}
+				>
+					<i className={"fa fa-instagram"}></i>
+					<span>Connect with Instagram</span>
+				</button>
 			</div>
 			<div className={style.middlecolumn}> <div className={style.middlecolumntext} >or</div> </div>
 			<div className={style.maincolumn}>
@@ -92,32 +74,31 @@ let Form = (props) => {
 				<Field
 					name="username"
 					component={renderTextField}
-					hintText="Name"
+					placeholder="Username"
 				/>
 
 				<Field
 					name="email"
 					component={renderTextField}
-					hintText="email"
+					placeholder="Email"
 				/>
 				<Field
 					name="password"
+					type="password"
 					component={renderTextField}
-					hintText="password"
+					placeholder="password"
 				/>
-				<FlatButton
-					fullWidth={true}
-					backgroundColor="#CCCCC"
-					hoverColor="#CCCCCC"
-					label="Create  account"
-					style={{ ...socialBtnStyle, color: "#000000" }}
+				<button
+					//	fullWidth={true}
+					//	backgroundColor="#CCCCC"
+					//	hoverColor="#CCCCCC"
+					//	label="Create  account"
+					//	style={{ ...socialBtnStyle, color: "#000000" }}
 					onTouchTap={handleSubmit}
-				/>
+				>
+					Login local
+				</button>
 			</div>
-			{/*Auth progres...*/}
-			{submitting && <div className ={style.darken}>
-				<CircularProgress size={100} thickness={10} />
-			</div>}
 		</form>
 	)
 }
