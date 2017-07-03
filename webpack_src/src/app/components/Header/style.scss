@@ -1,7 +1,9 @@
+@import 'app/common.scss';
+
 .appbar{
 	padding: 1rem;
 	font-size: 2rem;
-	background-color:aqua;
+	background-color: $colorPrimary;
 
 	&:after{
 		display: table;
