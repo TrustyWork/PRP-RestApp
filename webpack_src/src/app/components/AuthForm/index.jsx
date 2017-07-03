@@ -70,6 +70,7 @@ const AuthForm = (props) => {
 			overlayClassName={style.overlay}
 			isOpen={props.isShown}
 			onRequestClose={props.actions.authFormHide}
+			contentLabel="LoginForm"
 		>
 			<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
 			{/*<MenuItem
