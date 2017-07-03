@@ -37,6 +37,7 @@ let Form = (props) => {
 		<form className={style.body}>
 			<div className={style.maincolumn}>
 				<button
+					type="button"
 					className={style.fb}
 					onTouchTap={() => handleExternalAuth('fb', dispatch)}
 				>
@@ -45,6 +46,7 @@ let Form = (props) => {
 				</button>
 
 				<button
+					type="button"
 					className={style.gl}
 					onTouchTap={() => handleExternalAuth('gl', dispatch)}
 				>
@@ -53,6 +55,7 @@ let Form = (props) => {
 				</button>
 
 				<button
+					type="button"
 					className={style.in}
 					onTouchTap={() => handleExternalAuth('in', dispatch)}
 				>
@@ -61,6 +64,7 @@ let Form = (props) => {
 				</button>
 
 				<button
+					type="button"
 					className={style.ig}
 					onTouchTap={() => handleExternalAuth('insta', dispatch)}
 				>
@@ -89,6 +93,7 @@ let Form = (props) => {
 					placeholder="password"
 				/>
 				<button
+					type="submit"
 					//	fullWidth={true}
 					//	backgroundColor="#CCCCC"
 					//	hoverColor="#CCCCCC"
