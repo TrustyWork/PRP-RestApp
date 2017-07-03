@@ -43,6 +43,15 @@
 		flex-direction: column;
 		justify-content: space-between;
 
+		input + span:after {
+			position:absolute;
+			top: 1,5rem;
+			font-size: 1rem;
+			color: $colorError;
+			display: block;
+			content: attr(data-error);
+		}
+
 		button{
 			height: 2.5rem;
 			border-radius: 0.1rem;

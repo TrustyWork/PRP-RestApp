@@ -73,21 +73,6 @@ const AuthForm = (props) => {
 			contentLabel="LoginForm"
 		>
 			<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
-			{/*<MenuItem
-				disabled={!props.isOnline}
-				primaryText="Login..."
-				onTouchTap={props.actions.authFormShow}
-			/>*/}
-			{/*<Dialog
-				title="Login or create new account"
-				titleClassName={style.title}
-				modal={false}
-				open={props.isShown}
-				onRequestClose={props.actions.authFormHide}
-				bodyClassName={style.body}
-			>
-				<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
-			</Dialog>*/}
 		</Modal>
 	)
 }

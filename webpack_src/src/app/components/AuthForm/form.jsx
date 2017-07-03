@@ -3,11 +3,13 @@ import style from './style.scss';
 import { reduxForm, Field } from 'redux-form';
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-
-	<input
-		{...input}
-		{...custom}
-	/>
+	<div>
+		<input
+			{...input}
+			{...custom}
+		/>
+		<span data-error={touched && error ? error : ""}></span>
+	</div>
 )
 
 const validate = (values) => {
@@ -94,11 +96,6 @@ let Form = (props) => {
 				/>
 				<button
 					type="submit"
-					//	fullWidth={true}
-					//	backgroundColor="#CCCCC"
-					//	hoverColor="#CCCCCC"
-					//	label="Create  account"
-					//	style={{ ...socialBtnStyle, color: "#000000" }}
 					onTouchTap={handleSubmit}
 				>
 					Login local
