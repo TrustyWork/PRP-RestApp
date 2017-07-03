@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from 'app/containers/MainPage';
 import socket from 'app/ws_client';
+import { BrowserRouter } from 'react-router-dom'
 
 import 'font-awesome/css/font-awesome.css';
 import './main.scss';
@@ -32,8 +33,10 @@ function getRandomInt(min, max) {
 
 
 ReactDOM.render (
+	<BrowserRouter>
 	<Provider store={store}>
 		<MainPage />
 	</Provider>
+	</BrowserRouter>
 	, document.querySelector('#rm-root')
 );
