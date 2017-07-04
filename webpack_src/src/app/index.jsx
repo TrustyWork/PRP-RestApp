@@ -2,7 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from 'app/containers/MainPage';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import socket from 'app/ws_client';
 import { BrowserRouter } from 'react-router-dom'
 
@@ -13,7 +12,6 @@ import 'normalize.css/normalize.css'
 import { Provider } from 'react-redux';
 import store from './store';
 
-//Touch support for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -30,16 +28,14 @@ function getRandomInt(min, max) {
 }
 
 //disable to save traffic
-setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx: getRandomInt(0, 5), url:'http://lorempixel.com/350/350/food/' + getRandomInt(1, 10)+'/'   } }) }, 5000);
+//setInterval(() => { store.dispatch({ type: 'REPLACE_PIC_BY_IDX', payload: { idx: getRandomInt(0, 5), url:'http://lorempixel.com/350/350/food/' + getRandomInt(1, 10)+'/'   } }) }, 5000);
 
 
 
 ReactDOM.render (
 	<BrowserRouter>
 	<Provider store={store}>
-	<MuiThemeProvider>
 		<MainPage />
-	</MuiThemeProvider>
 	</Provider>
 	</BrowserRouter>
 	, document.querySelector('#rm-root')

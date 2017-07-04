@@ -1,25 +1,21 @@
 import React from 'react';
-import { GridList, GridTile } from 'material-ui/GridList';
-
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import styles from './styles.scss'
+import style from './style.scss'
 
 const ImgList = (props) => {
 
 	return (
-		<div className={styles.restolist}>
+		<div className={style.restolist}>
 			{props.tilesData.map((tile) => (
 				<div
-					className = {styles.restoitem}
+					className={style.restoitem}
 					key={tile.idx}
-					style={{backgroundImage:`url('${tile.img}')`}}
+					style={{ backgroundImage: `url('${tile.img}')` }}
 				>
 					<div>text</div>
 				</div>
 			))}
-
 		</div>
 	);
 };
@@ -29,6 +25,5 @@ const mapStateToProps = (state) => {
 		tilesData: state.mainpage.content.imglist
 	}
 }
-
 
 export default connect(mapStateToProps)(ImgList);

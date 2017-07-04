@@ -1,1 +1,21 @@
+@import 'app/common.scss';
 
+.appbar{
+	padding: 1rem;
+	font-size: 2rem;
+	background-color: $colorPrimary;
+
+	&:after{
+		display: table;
+		content: '';
+		clear: both;
+	}
+
+	.pullleft{
+		float:left;
+	}
+
+	.pullright{
+		float:right;
+	}
+}

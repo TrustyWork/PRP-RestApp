@@ -1,18 +1,13 @@
 import socket from 'app/ws_client';
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
-
-import MenuItem from 'material-ui/MenuItem';
-
+import Modal from 'react-modal';
+import Form from './form';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import style from './style.scss';
-
 import * as authActions from 'app/actions/auth';
 
-import Form from './form';
-
+import style from './style.scss';
 
 //submit handler
 const doLocalAuth = (values, dispatch, props) => {
@@ -69,23 +64,16 @@ const doExternalAuth = (provider, dispatch) => {
 
 const AuthForm = (props) => {
 	return (
-		<div>
-			<MenuItem
-				disabled={!props.isOnline}
-				primaryText="Login..."
-				onTouchTap={props.actions.authFormShow}
-			/>
-			<Dialog
-				title="Login or create new account"
-				titleClassName={style.title}
-				modal={false}
-				open={props.isShown}
-				onRequestClose={props.actions.authFormHide}
-				bodyClassName={style.body}
-			>
-				<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
-			</Dialog>
-		</div>
+
+		<Modal
+			className={style.dialog}
+			overlayClassName={style.overlay}
+			isOpen={props.isShown}
+			onRequestClose={props.actions.authFormHide}
+			contentLabel="LoginForm"
+		>
+			<Form handleExternalAuth={doExternalAuth} onSubmit={doLocalAuth} />
+		</Modal>
 	)
 }
 

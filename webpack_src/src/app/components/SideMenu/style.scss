@@ -1,4 +1,17 @@
-.drawer {
-	padding-top: 75px;
-	z-index: 0 !important;
+.list {
+	padding-left: 1rem;
+	height: 100%;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	box-shadow: 0.5rem 0.5rem 2rem #CCCCCC;
+	list-style: none;
+	.menuitem{
+		margin: 0.5rem 0;
+		font-size: 150%;
+	&:hover {
+		background-color: #CCCCCC;
+		cursor: pointer;
+	}
+
+	}
 }

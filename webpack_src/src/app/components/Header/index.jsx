@@ -1,30 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import { bindActionCreators } from 'redux';
 import * as authActions from 'app/actions/auth';
 
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 import AuthForm from 'app/components/AuthForm';
 
 import style from './style.scss'
 
 const Header = (props) => {
 	return (
-		<AppBar
-			title={props.user ? `RestApp: Welcome, ${props.users[props.user].username}` : 'RestApp'}
-			iconElementRight={
+		<div className={style.appbar}>
+			<span className={style.pullleft}>
+				{props.user ? `RestApp: Welcome, ${props.users[props.user].username}` : 'RestApp'}
+			</span>
+			{
 				props.user ?
-					<FlatButton
-						label="LogOut"
-						onTouchTap={props.handleLogout}
-						disabled={!props.isOnline}
-					/>
+					<button
+						className={style.pullright}
+						onClick={props.handleLogout}
+					>
+						Logout...
+					</button>
 					:
-					<AuthForm {...props}/>
+					<button
+						className={style.pullright}
+						onClick={props.handleLogin}
+					>
+						Login...
+					</button>
 			}
-		>
-		</AppBar>
+
+			<AuthForm  {...props} />
+
+		</div>
 	)
 }
 
@@ -38,7 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleLogout: () => { dispatch(authActions.authFullLogout()) }
+		handleLogout: () => { dispatch(authActions.authFullLogout()) },
+		handleLogin: () => { dispatch(authActions.authFormShow()) }
 	}
 }
 
