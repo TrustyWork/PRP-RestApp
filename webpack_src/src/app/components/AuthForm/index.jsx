@@ -11,7 +11,7 @@ import style from './style.scss';
 
 //submit handler
 const doLocalAuth = (values, dispatch, props) => {
-
+	debugger;
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
 
@@ -21,7 +21,7 @@ const doLocalAuth = (values, dispatch, props) => {
 		headers: myHeaders,
 		body: JSON.stringify(values)
 	}
-
+	debugger;
 	return fetch('/auth/local', requestOptions)
 		.then(res => res.json())
 		.then(json => {
