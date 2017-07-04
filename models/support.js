@@ -5,8 +5,11 @@ const SupportSchema = {
     // _id will be created by Mongo
     author: {
         name: { type: String },
-        email: { type: String },
-        kind: String,
+        restaurant: { type: String },
+        email: {type: String},
+        phone: {type: String},
+        account: { type: String },
+        kind: { type: String },
         item: { type: Schema.Types.ObjectId, refPath: 'author.kind' },
         index: { unique: false }
     },
@@ -39,12 +42,15 @@ const SupportSchema = {
 const Support = new Schema(SupportSchema);
 
 
-Support.statics.addSupportRecord = function (name, email, kind, item, category, issue, status, attachments) {
+Support.statics.addSupportRecord = function (name, restaurant, email, phone,  account, kind, item, category, issue, status, attachments) {
 
     let supportRecord = new this({
         author: {
             name: name || null
+            , restaurant: restaurant || null
             , email: email || null
+            , phone: phone || null
+            , account: account || null
             , kind: kind || null
             , item: item || null
         }
